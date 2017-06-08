@@ -1,0 +1,24 @@
+{
+  "gitbook": "3.1.0",
+  "title": "Alveron",
+  "author": "Robin Frischmann <robin@rofrischmann.de>",
+  "description": "Official documentation for Alveron",
+  "language": "en",
+  "plugins": [
+    "edit-link",
+    "prism",
+    "-highlight",
+    "github",
+    "anker-enable",
+    "advanced-emoji"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/rofrischmann/alveron/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/rofrischmann/alveron/"
+    }
+  }
+}

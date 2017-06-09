@@ -1,7 +1,7 @@
 {
   "name": "react-controlled-form",
   "version": "0.1.0",
-  "description": "Functional helpers for simple form control with React",
+  "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "files": [
     "LICENSE",
@@ -29,14 +29,17 @@
     "react",
     "react-form",
     "form",
+    "redux-form",
     "form-management",
     "controlled-form"
   ],
   "dependencies": {
-    "paradux": "^1.2.1",
+    "prop-types": "^15.5.10",
+    "recompose": "^0.23.5",
     "redux-actions": "^2.0.3"
   },
   "peerDependencies": {
+    "react": "^15.5.4",
     "react-redux": "^5.0.5"
   },
   "devDependencies": {
@@ -58,6 +61,7 @@
     "gitbook-cli": "^2.3.0",
     "jest": "^18.1.0",
     "prettier": "^1.3.1",
+    "react": "^15.5.4",
     "react-redux": "^5.0.5"
   }
 }

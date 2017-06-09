@@ -1,146 +1,111 @@
-import { Component, PropTypes } from 'react'
+/* @flow */
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { shallowEqual } from 'recompose'
 
-import { initForm, updateForm } from '../actions/form'
+import objectReduce from '../utils/objectReduce'
+import { initForm, updateField } from '../model/actions'
 
-function getCurrentPathName() {
-  if (typeof window !== 'undefined') {
-    return window.location.pathname
-  }
+import type { Field } from '../../types/Field'
 
-  return global.__nextPathName
+type FormProps = {
+  formId: string,
+  initialFields: string,
+  validate?: Function,
+  onChange?: Function,
+  onSubmit?: Function,
+
+  data: Object,
+  initForm: Function,
+  updateField: Function
 }
 
 class Form extends Component {
-  props: { formId: string, formData: Object, onSubmit?: Function };
   static childContextTypes = {
     formId: PropTypes.string.isRequired,
     isValid: PropTypes.bool.isRequired,
     submitForm: PropTypes.func.isRequired
-  };
+  }
 
   constructor(props, context) {
     super(props, context)
-    this.formId = `${getCurrentPathName()}_${props.formId}`
-    props.initForm(this.formId)
-  }
 
-  componentWillReceiveProps(newProps) {
-    const newValues = this._getFormData(newProps)
-    const oldValues = this._getFormData(this.props)
-
-    if (
-      this.props.onChange &&
-      !shallowEqual(newValues.formValues, oldValues.formValues)
-    ) {
-      const { formValues, formData } = newValues
-
-      this.props.onChange({
-        formValues,
-        formData,
-        updateFormField: (fieldId, value, isValid) =>
-          this.props.updateForm(this.formId, fieldId, value, isValid)
-      })
-    }
+    props.initForm(props.initialFields)
   }
 
   getChildContext() {
     return {
-      formId: this.formId,
-      submitForm: this._submitForm,
-      isValid: this.validateForm()
+      formId: this.props.formId,
+      submitForm: this.onSubmit,
+      isValid: this.validate()
     }
   }
 
-  validateForm = () => {
-    const data = this._getFormData(this.props)
+  componentWillReceiveProps(newProps) {
+    const { data, updateField, onChange } = this.props
 
-    if (this.props.validate) {
-      const isSpecialValid = this.props.validate(data)
-
-      if (!isSpecialValid) {
-        return false
-      }
+    if (onChange && !shallowEqual(data, newProps.data)) {
+      onChange({ data, updateField })
     }
+  }
 
-    const { formData } = data
-    return Object.keys(formData).reduce(
-      (isValid, field) => {
-        if (formData[field].isValid === false) {
-          return false
-        }
-        return isValid
-      },
-      true
-    )
-  };
+  onSubmit = event => {
+    const { data, updateField, onSubmit } = this.props
 
-  _getFormData = (props) => {
-    const formData = props.formData[this.formId] || {}
-    const formValues = Object.keys(formData).reduce(
-      (values, fieldId) => {
-        values[fieldId] = formData[fieldId].value
-        return values
-      },
-      {}
-    )
-
-    return {
-      formData,
-      formValues
-    }
-  };
-
-  _submitForm = () => {
-    this._onSubmit({})
-  };
-
-  _onSubmit = (event) => {
-    const { formValues, formData } = this._getFormData(this.props)
-
-    if (this.props.onSubmit) {
-      this.props.onSubmit({
-        event,
-        formValues,
-        formData,
-        updateFormField: (fieldId, value, isValid) =>
-          this.props.updateForm(this.formId, fieldId, value, isValid)
+    if (onSubmit) {
+      onSubmit({
+        data,
+        updateField
       })
     }
 
     if (event && event.preventDefault) {
       event.preventDefault()
     }
+  }
 
-    return false
-  };
+  validate = () => {
+    const { data, validate } = this.props
+
+    return objectReduce(
+      data,
+      (isFormValid, { isValid }) => isValid && isFormValid,
+      validate ? validate(data) : true
+    )
+  }
+
+  props: FormProps
 
   render() {
-    return (
-      <form
-        ref={(el) => {
-          this.formElement = el
-        }}
-        onSubmit={this._onSubmit}
-        style={this.props.style}
-      >
-        {this.props.children}
-      </form>
-    )
+    const {
+      formId,
+      validate,
+      onSubmit,
+      onChange,
+      data,
+      initForm,
+      updateField,
+      ...otherProps
+    } = this.props
+
+    return <form {...otherProps} onSubmit={onSubmit} />
   }
 }
 
-const mapStateToProps = (state: Object) => ({ formData: state.form })
-const mapDispatchToProps = (dispatch: Function) => ({
-  initForm: formId => dispatch(initForm(formId)),
-  updateForm: (formId, fieldId, value, isValid) =>
+const mapStateToProps = ({ form }: Object, { formId }: Object) => ({
+  data: form[formId]
+})
+
+const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
+  initForm: (initialFields: Object) =>
+    dispatch(initForm({ formId, initialFields })),
+  updateField: (fieldId: string, fieldData: Field) =>
     dispatch(
-      updateForm({
+      updateField({
         formId,
         fieldId,
-        value,
-        isValid
+        ...fieldData
       })
     )
 })

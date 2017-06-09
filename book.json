@@ -1,8 +1,8 @@
 {
   "gitbook": "3.1.0",
-  "title": "Alveron",
+  "title": "Controlled Forms for React and Redux",
   "author": "Robin Frischmann <robin@rofrischmann.de>",
-  "description": "Official documentation for Alveron",
+  "description": "Official documentation for react-controlled-form",
   "language": "en",
   "plugins": [
     "edit-link",
@@ -14,11 +14,11 @@
   ],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/rofrischmann/alveron/tree/master",
+      "base": "https://github.com/rofrischmann/react-controlled-form/tree/master",
       "label": "Edit This Page"
     },
     "github": {
-      "url": "https://github.com/rofrischmann/alveron/"
+      "url": "https://github.com/rofrischmann/react-controlled-form/"
     }
   }
 }

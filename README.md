@@ -25,42 +25,48 @@ yarn add react-controlled-form react react-redux redux
 ```javascript
 import { Form, asField, asSubmit } from 'react-controlled-form'
 
-const InputField = ({ value, updateField }) => (
-  <input value={value} onInput={e => updateField({ value: e.target.value })} />
-)
+function InputField({
+  value,
+  updateField,
+  isRequired,
+  isEnabled,
+  isValid
+}) {
+  // we could also do validation here and
+  // update isValid in updateField respectively
+  function onInput(e) {
+    updateField({ value: e.target.value })
+  }
 
-const SelectField = ({ value, options, updateField }) => (
-  <select onChange={e => updateField({ value: e.target.value })}>
-    {options.map(country => (
-      <option key={country} selected={country === value}>{country}</option>
-    ))}
-  </select>
-)
+  return (
+    <input
+      value={value}
+      required={isRequired}
+      disabled={!isEnabled}
+      onInput={onInput} />
+  )
+}
+
+function SubmitButton({ submitForm }) {
+  return (
+    <button onClick={sumbitForm}>
+      Submit
+    </button>
+  )
+}
 
 const Input = asField(InputField)
-const Select = asField(SelectField)
-
-const countries = [
-  'Germany',
-  'United States',
-  'Australia',
-  'India'
-]
-
-const initialFields = {
-  lastname: { isRequired: true }
-  country: { value: 'Germany' }
-}
+const Submit = asSubmit(SubmitButton)
 
 function onSubmit({ data }) {
   console.log("Submitted: ", data)
 }
 
 export default () => (
-  <Form formId="contact" onSubmit={onSubmit} initialFields={initialFields}>
+  <Form formId="name" onSubmit={onSubmit}>
     <Input fieldId="firstname" />
     <Input fieldId="lastname" />
-    <Select fieldId="country" options={counties} />
+    <Submit />
   </Form>
 )
 ```

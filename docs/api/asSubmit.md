@@ -5,10 +5,8 @@ It is used to enhance any React component with the ability to submit the wrappin
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
 
-## Returns
-(*ReactComponent*) Enhanced React component
-
 #### Props
+The `component` receives a set of props that are passed down by the HoC.
 All props automatically update if a change is triggered for this field.
 
 | Prop | Type | Description |
@@ -16,16 +14,22 @@ All props automatically update if a change is triggered for this field.
 | submitForm | (*Function*) | Submits the wrapping form and triggers the onSubmit event. |
 | isValid | (*Boolean*) | Indicates if the whole form is valid. |
 
+## Returns
+(*ReactComponent*) Enhanced React component
+
 ## Example
 ```javascript
 import React from 'react'
 import { asSubmit } from 'react-controlled-form'
 
-function Submit({ submitForm }) {
+function SubmitButton({ submitForm }) {
   return <button onClick={submitForm}>Submit</button>
 }
 
-export default asSubmit(Submit)
+const Submit = asSubmit(SubmitButton)
+
+// usage
+<Submit />
 ```
 
 ## Tips & Tricks

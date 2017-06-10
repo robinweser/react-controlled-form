@@ -5,10 +5,8 @@ Probably the most common HoC. It is used to turn any ordinary React component in
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
 
-## Returns
-(*ReactComponent*) Enhanced React component
-
 #### Props
+The `component` receives a set of props that are passed down by the HoC.
 All props automatically update if a change is triggered for this field.
 
 | Prop | Type | Description |
@@ -20,16 +18,31 @@ All props automatically update if a change is triggered for this field.
 | isValid | (*Boolean*) | Indicates if the field is valid. |
 | isTouched | (*Boolean*) | Indicates if the field is touched.<br>*(Returns true as soon as user input happens, but remains false for initialization)*. |
 
+## Returns
+(*ReactComponent*) Enhanced React component
+
+
+#### Props
+In order to be used, the returned React component requires a single `fieldId` prop.
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| fieldId | (*string*) | A (unique) identifier used to store the field data in our Redux store |
+
 ## Example
 ```javascript
 import React from 'react'
 import { asField } from 'react-controlled-form'
 
-function Input({ value, updateField }) {
+function InputField({ value, updateField }) {
   return <input value={value} onInput={e => updateField({ value: e.target.value })}  />
 }
 
-export default asField(Input)
+const Input = asField(InputField)
+
+// usage
+<Input fieldId="firstname" />
+<Input fieldId="lastname" />
 ```
 
 ## Tips & Tricks

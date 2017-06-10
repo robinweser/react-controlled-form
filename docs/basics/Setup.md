@@ -1,4 +1,4 @@
-# Getting Started
+# Setup
 
 The API is build on Redux and therefore it is required to use Redux with React.<br>
 You have to ensure that the Redux store is provided using the `<Provider>` component from react-redux.

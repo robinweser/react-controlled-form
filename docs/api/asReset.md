@@ -5,22 +5,27 @@ It is used to enhance any React component with the ability to reset the wrapping
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
 
-## Returns
-(*ReactComponent*) Enhanced React component
-
 #### Props
+The `component` receives a set of props that are passed down by the HoC.
+
 | Prop | Type | Description |
 | --- | --- | --- |
 | resetForm | (*Function*) | Resets the wrapping form. |
+
+## Returns
+(*ReactComponent*) Enhanced React component
 
 ## Example
 ```javascript
 import React from 'react'
 import { asReset } from 'react-controlled-form'
 
-function Reset({ resetForm }) {
+function ResetButton({ resetForm }) {
   return <button onClick={resetForm}>Reset</button>
 }
 
-export default asReset(Reset)
+const Reset = asReset(ResetButton)
+
+// usage
+<Reset />
 ```

@@ -16,7 +16,8 @@ yarn add react-controlled-form react react-redux redux
 ```
 
 ## Benefits
-* simple API
+* simple functional API
+* Redux-driven state management
 * full flexibility
 * custom form fields
 * reactive forms

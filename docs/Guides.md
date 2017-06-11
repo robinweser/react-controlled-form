@@ -1,9 +1,8 @@
 # Guides
 
-* [Initializing Fields](guides/InitializingFields.md)
+* [Store Setup](guides/StoreSetup.md)
+* [Form Initialization](guides/FormInitialization.md)
 * [Updating Fields](guides/UpdatingFields.md)
-* [Conditional Fields](guides/ConditionalFields.md)
-* [Validating Fields](guides/ValidatingFields.md)
-* [Displaying Validation Errors](guides/DisplayingValidationErrors.md)
+* [Form Validation](guides/FormValidation.md)
+* [Validation Errors](guides/ValidationErrors.md)
 * [Handling Submit](guides/HandlingSubmit.md)
-* [Accessible Forms](guides/AccessibleForms.md)

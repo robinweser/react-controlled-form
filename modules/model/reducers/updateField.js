@@ -6,7 +6,15 @@ import type { Action } from '../../../types/Action'
 export default function updateField(
   state: Object,
   {
-    payload: { formId, fieldId, value, isEnabled, isRequired, isValid }
+    payload: {
+      formId,
+      fieldId,
+      value,
+      isEnabled,
+      isRequired,
+      isTouched,
+      isValid
+    }
   }: Action
 ): Object {
   return {
@@ -17,7 +25,7 @@ export default function updateField(
         isEnabled,
         isRequired,
         isValid,
-        isTouched: true,
+        isTouched: isTouched || true,
         value
       })
     }

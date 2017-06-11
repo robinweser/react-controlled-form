@@ -11,7 +11,7 @@ All props automatically update if a change is triggered for this field.
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| updateField | (*Function*) | Updates the field data. Takes an object with `isEnabled`, `isRequired`, `isValid` and `value`. Each value is optional though. |
+| updateField | (*Function*) | Updates the field data. Takes an object with `isEnabled`, `isRequired`, `isTouched`, `isValid` and `value`. Each value is optional though. |
 | value | (*any*) | The controlled field value. |
 | isEnabled | (*Boolean*) | Indicates if the field is enabled. |
 | isRequired | (*Boolean*) | Indicates if the field is required. |

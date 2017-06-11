@@ -1,4 +1,4 @@
 # Basics
 
-* [Getting Started](basics/GettingStarted.md)
-* [Creating Fields](basics/CreatingFields.md)
+* [Fields](basics/Fields.md)
+* [Forms](basics/Forms.md)

@@ -1,9 +1,7 @@
-# Setup
+## Store Setup
 
 The API is build on Redux and therefore it is required to use Redux with React.<br>
 You have to ensure that the Redux store is provided using the `<Provider>` component from react-redux.
-
-## Setting up your Redux store
 
 Despite using Redux, we need to include a special form reducer with the `form` key.<br>
 This is important, as the API requires that `state.form` is used.

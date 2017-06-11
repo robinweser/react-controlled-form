@@ -3,7 +3,8 @@
 react-controlled-form aims to **simplify form management** with React and Redux.<br>
 It ships functional APIs to create your very own form fields and is built with **flexibility** and **customization** in mind.<br>
 
-It allows you to **bring your own components**. You do not have to struggle with predefined input components ever again!
+It allows you to **bring your own components**.<br>
+You do not have to struggle with predefined input components ever again!
 
 <img alt="TravisCI" src="https://travis-ci.org/rofrischmann/react-controlled-form.svg?branch=master"> <a href="https://codeclimate.com/github/rofrischmann/react-controlled-form/coverage"><img alt="Test Coverage" src="https://codeclimate.com/github/rofrischmann/react-controlled-form/badges/coverage.svg"></a> <img alt="npm downloads" src="https://img.shields.io/npm/dm/react-controlled-form.svg"> <img alt="npm version" src="https://badge.fury.io/js/react-controlled-form.svg">
 

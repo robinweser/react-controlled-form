@@ -29,7 +29,6 @@ function InputField({
   value,
   updateField,
   isRequired,
-  isEnabled,
   isValid
 }) {
   // we could also do validation here and
@@ -74,11 +73,12 @@ export default () => (
 ## Documentation
 
 * [Introduction](https://react-controlled-form.js.org/docs/Introduction.html)
+* [Basics](https://react-controlled-form.js.org/docs/Basics.html)
 * [Guides](https://react-controlled-form.js.org/docs/Guides.html)
 * [API Reference](https://react-controlled-form.js.org/docs/API.html)
 
 ## Examples
-
+> Examples are coming soon.
 
 
 ## License

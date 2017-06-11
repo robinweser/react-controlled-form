@@ -1,6 +1,6 @@
 import initForm from '../initForm'
 
-const payload = p => ({ p })
+const payload = p => ({ payload: p })
 
 describe('Initializing a form', () => {
   it('should add an empty object', () => {

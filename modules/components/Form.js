@@ -12,7 +12,7 @@ import type { Field } from '../../types/Field'
 type FormProps = {
   formId: string,
   initialFields: string,
-  preventDefault?: boolean,
+  enableDefault?: boolean,
   validate?: Function,
   onChange?: Function,
   onSubmit?: Function,
@@ -52,7 +52,7 @@ class Form extends Component {
   }
 
   onSubmit = event => {
-    const { data, updateField, onSubmit } = this.props
+    const { data, updateField, enableDefault, onSubmit } = this.props
 
     if (onSubmit) {
       onSubmit({
@@ -61,7 +61,7 @@ class Form extends Component {
       })
     }
 
-    if (event && event.preventDefault && !this.props.enableDefault) {
+    if (event && event.preventDefault && !enableDefault) {
       event.preventDefault()
     }
   }

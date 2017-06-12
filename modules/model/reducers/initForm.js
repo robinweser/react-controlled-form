@@ -3,10 +3,13 @@ import type { Action } from '../../../types/Action'
 
 export default function initForm(
   state: Object,
-  { payload: { formId, initialFields = {} } }: Action
+  { payload: { formId, initialFields = {}, initialState = {} } }: Action
 ): Object {
   return {
     ...state,
-    [formId]: initialFields
+    [formId]: {
+      data: initialFields,
+      state: initialState
+    }
   }
 }

@@ -3,11 +3,13 @@ import initForm from '../initForm'
 const payload = p => ({ payload: p })
 
 describe('Initializing a form', () => {
-  it('should add an empty object', () => {
-    expect(initForm({}, payload({ formId: 'foo' }))).toEqual({ foo: {} })
+  it('should add default data, state and isValid', () => {
+    expect(initForm({}, payload({ formId: 'foo' }))).toEqual({
+      foo: { data: {}, state: {} }
+    })
   })
 
-  it('should set an initial state', () => {
+  it('should set initial data', () => {
     expect(
       initForm(
         {},
@@ -26,13 +28,35 @@ describe('Initializing a form', () => {
       )
     ).toEqual({
       foo: {
-        bar: {
-          value: true,
-          isRequired: false
+        data: {
+          bar: {
+            value: true,
+            isRequired: false
+          },
+          baz: {
+            isEnabled: false
+          }
         },
-        baz: {
-          isEnabled: false
-        }
+        state: {}
+      }
+    })
+  })
+
+  it('should set an initial state', () => {
+    expect(
+      initForm(
+        {},
+        payload({
+          formId: 'foo',
+          initialState: {
+            did_check: true
+          }
+        })
+      )
+    ).toEqual({
+      foo: {
+        data: {},
+        state: { did_check: true }
       }
     })
   })

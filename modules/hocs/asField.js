@@ -4,22 +4,24 @@ import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
 
-import { initField, updateField } from '../model/actions'
+import { initField, updateField, updateState } from '../model/actions'
 
 import type { Field } from '../../types/Field'
 
 type FieldProps = {
+  formId: string,
   data: Field,
+  state: Object,
   initField: Function,
   updateField: Function,
+  updateState: Function,
 
-  initialState: Function,
-  fieldId: string,
-  formId: string
+  fieldId: string
 }
 
 const mapStateToProps = ({ form }: Object, { fieldId, formId }: Object) => ({
-  data: form[formId][fieldId] || {}
+  data: form[formId].data[fieldId] || {},
+  state: form[formId].state
 })
 
 const mapDispatchToProps = (
@@ -34,6 +36,13 @@ const mapDispatchToProps = (
         formId,
         fieldId,
         ...fieldData
+      })
+    ),
+  updateState: newState =>
+    dispatch(
+      updateState({
+        formId,
+        newState
       })
     )
 })
@@ -51,13 +60,17 @@ export default function asField(Comp: any, defaultData: Field = {}): any {
     render() {
       const {
         data: { value = '', isEnabled, isRequired, isValid, isTouched },
+        state,
         updateField,
+        updateState,
         ...otherProps
       } = this.props
 
       return (
         <Comp
           updateField={updateField}
+          updateState={updateState}
+          state={state}
           value={value}
           isEnabled={isEnabled}
           isRequired={isRequired}

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { shallowEqual } from 'recompose'
 
 import objectReduce from '../utils/objectReduce'
-import { initForm, updateField } from '../model/actions'
+import { initForm, resetForm, updateField } from '../model/actions'
 
 import type { Field } from '../../types/Field'
 
@@ -19,7 +19,8 @@ type FormProps = {
 
   data: Object,
   initForm: Function,
-  updateField: Function
+  updateField: Function,
+  resetForm: Function
 }
 
 class Form extends Component {
@@ -56,12 +57,13 @@ class Form extends Component {
   }
 
   onSubmit = event => {
-    const { data, updateField, enableDefault, onSubmit } = this.props
+    const { data, updateField, resetForm, enableDefault, onSubmit } = this.props
 
     if (onSubmit) {
       onSubmit({
         data,
-        updateField
+        updateField,
+        resetForm
       })
     }
 
@@ -105,6 +107,7 @@ const mapStateToProps = ({ form }: Object, { formId }: Object) => ({
 const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
   initForm: (initialFields: Object) =>
     dispatch(initForm({ formId, initialFields })),
+  resetForm: () => dispatch(resetForm(formId)),
   updateField: (fieldId: string, fieldData: Field) =>
     dispatch(
       updateField({

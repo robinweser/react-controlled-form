@@ -44,7 +44,8 @@ function InputField({
       value={value}
       required={isRequired}
       disabled={!isEnabled}
-      onInput={onInput} />
+      onInput={onInput}
+    />
   )
 }
 

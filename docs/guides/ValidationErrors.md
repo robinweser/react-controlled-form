@@ -30,9 +30,7 @@ const Age = ({ updateField, value, isValid }) => {
 
   return (
     <div>
-      <input
-      value={value}
-      onInput={onInput} />
+      <input value={value} onInput={onInput} />
       {errorMessage}
     </div>
   )

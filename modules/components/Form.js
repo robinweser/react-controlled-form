@@ -148,4 +148,5 @@ const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
       })
     )
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

@@ -47,12 +47,12 @@ const mapDispatchToProps = (
     )
 })
 
-export default function asField(Comp: any, defaultData: Field = {}): any {
+export default function asField(Comp: any, defaultField: Field = {}): any {
   class Field extends Component {
     constructor(props, context) {
       super(props, context)
 
-      props.initField(defaultData)
+      props.initField(defaultField)
     }
 
     props: FieldProps

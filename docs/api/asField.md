@@ -1,10 +1,10 @@
-# `asField(component)`
+# `asField(component, [defaultField])`
 
 Probably the most common HoC. It is used to turn any ordinary React component into fully integrated form field that gets all required methods and data passed via props.
 
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
-3. `defaultData` (*Object?*): Default field data that applies to every `component`. The data will be overwritten by `initialFields` passed to the wrapping `<Form>` component.
+3. `defaultField` (*Object?*): Default field data that applies to every `component`. The data will be overwritten by `initialFields` passed to the wrapping `<Form>` component.
 
 #### Props
 The `component` receives a set of props that are passed down by the HoC.
@@ -12,12 +12,14 @@ All props automatically update if a change is triggered for this field.
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| updateField | (*Function*) | Updates the field data. Takes an object with `isEnabled`, `isRequired`, `isTouched`, `isValid` and `value`. Each value is optional though. |
 | value | (*any*) | The controlled field value. |
 | isEnabled | (*Boolean*) | Indicates if the field is enabled. |
 | isRequired | (*Boolean*) | Indicates if the field is required. |
 | isValid | (*Boolean*) | Indicates if the field is valid. |
 | isTouched | (*Boolean*) | Indicates if the field is touched.<br>*(Returns true as soon as user input happens, but remains false for initialization)*. |
+| state | (*Object*) | The form-scoped state |
+| updateField | (*Function*) | Updates the field data. Takes an object with `isEnabled`, `isRequired`, `isTouched`, `isValid` and `value`. Each value is optional though. |
+| updateState | (*Function*) | Updates the form-scoped state. Takes an object of new state keys and merges those with the existing state. |
 
 ## Returns
 (*ReactComponent*) Enhanced React component

@@ -8,7 +8,7 @@ The Form component is used to declare a new form context. Every form field withi
 | formId | (*string*) | A unique identifier which is used to save the whole form data in our Redux store. |
 | initialFields | (*Object?*) | Defines initial field data. Every field value is optional. |
 | validate | (*Function?*) | A function to perform additional form validation.<br>It's first parameter matches the [callback shape](#callback-shape). |
-| onChange | (*Function?*) | A function that is triggered on **every** change.<br>It's first parameter matches the [callback shape](#callback-shape). |
+| onChange | (*Function?*) | A function that is triggered on **every** change.<br>It's first parameter matches the [callback shape](#callback-shape). It additionally also receives `previousData` which contains the field data before the change happened. |
 | onSubmit | (*Function?*) | A function that is triggered if the form gets submitted.<br>It's first parameter matches the [callback shape](#callback-shape). |
 
 #### Callback Shape
@@ -28,7 +28,7 @@ CallbackShape = {
 
 ## Example
 ```javascript
-import { Form } from 'alveron'
+import { Form } from 'react-controlled-form'
 
 const initialFields = {
   country: {

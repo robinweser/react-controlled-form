@@ -47,7 +47,11 @@ class Form extends Component {
     const { data, updateField, onChange } = this.props
 
     if (onChange && !shallowEqual(data, newProps.data)) {
-      onChange({ data, updateField })
+      onChange({
+        data: newProps.data,
+        previousData: data,
+        updateField
+      })
     }
   }
 

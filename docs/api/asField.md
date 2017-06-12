@@ -4,6 +4,7 @@ Probably the most common HoC. It is used to turn any ordinary React component in
 
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
+3. `defaultData` (*Object?*): Default field data that applies to every `component`. The data will be overwritten by `initialFields` passed to the wrapping `<Form>` component.
 
 #### Props
 The `component` receives a set of props that are passed down by the HoC.
@@ -21,7 +22,6 @@ All props automatically update if a change is triggered for this field.
 ## Returns
 (*ReactComponent*) Enhanced React component
 
-
 #### Props
 In order to be used, the returned React component requires a single `fieldId` prop.
 
@@ -38,7 +38,13 @@ function InputField({ value, updateField }) {
   return <input value={value} onInput={e => updateField({ value: e.target.value })}  />
 }
 
-const Input = asField(InputField)
+// make every input auto-required
+// and thus invalid by default
+const defaultData = {
+  isRequired: true,
+  isValid: false
+}
+const Input = asField(InputField, defaultData)
 
 // usage
 <Input fieldId="firstname" />

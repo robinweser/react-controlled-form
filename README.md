@@ -9,11 +9,12 @@ You do not have to struggle with predefined input components ever again!
 <img alt="TravisCI" src="https://travis-ci.org/rofrischmann/react-controlled-form.svg?branch=master"> <a href="https://codeclimate.com/github/rofrischmann/react-controlled-form/coverage"><img alt="Test Coverage" src="https://codeclimate.com/github/rofrischmann/react-controlled-form/badges/coverage.svg"></a> <img alt="npm downloads" src="https://img.shields.io/npm/dm/react-controlled-form.svg"> <img alt="npm version" src="https://badge.fury.io/js/react-controlled-form.svg">
 
 ## Installation
-> Controlled Forms requires `react-redux` to be installed in your project. Therefore, `react` and `redux` must also be installed.
-
 ```sh
 yarn add react-controlled-form react react-redux redux
 ```
+> Controlled Forms requires `react-redux` to be installed in your project. Therefore, `react` and `redux` must also be installed.
+
+
 
 ## Benefits
 * simple functional API

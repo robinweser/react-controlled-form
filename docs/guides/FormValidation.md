@@ -48,11 +48,12 @@ const Age = ({ updateField, value, isValid }) => {
 
   return (
     <input
-    value={value}
-    onInput={onInput}
-    style={{
-      color: isValid ? 'green' : 'red'
-    }} />
+      value={value}
+      onInput={onInput}
+      style={{
+        color: isValid ? 'green' : 'red'
+      }}
+    />
   )
 }
 

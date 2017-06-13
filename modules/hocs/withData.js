@@ -8,8 +8,8 @@ const defaultMapper = data => ({ data })
 export default function withData(
   mapDataToProps: Function = defaultMapper
 ): any {
-  const mapStateToProps = ({ form }: Object, { formId }: Object) =>
-    mapDataToProps(form[formId])
+  const mapStateToProps = ({ form }: Object, ownProps: Object) =>
+    mapDataToProps(form[ownProps.formId].data, ownProps)
 
   return (component: any) =>
     compose(getContext({ formId: PropTypes.string }), connect(mapStateToProps))(

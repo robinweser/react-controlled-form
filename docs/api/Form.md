@@ -9,7 +9,7 @@ The Form component is used to declare a new form context. Every form field withi
 | initialFields | (*Object?*) | Defines initial field data. Every field value is optional. |
 | enabledDefault | (*boolean?*) | Indicates wether `event.preventDefault` is executed or not.<br>Defaults to `false`. |
 | validate | (*Function?*) | A function to perform additional form validation.<br>It's first parameter matches the [callback shape](#callback-shape). |
-| onChange | (*Function?*) | A function that is triggered on **every** change.<br>It's first parameter matches the [callback shape](#callback-shape). It additionally also receives `previousData` which contains the field data before the change happened. |
+| onChange | (*Function?*) | A function that is triggered on **every** change.<br>It's first parameter matches the [callback shape](#callback-shape). It additionally also receives `previousData` and `previousState` which contain the field data and form state before the change happened. |
 | onSubmit | (*Function?*) | A function that is triggered if the form gets submitted.<br>It's first parameter matches the [callback shape](#callback-shape). It additionally also receives the `resetForm`-method to reset the form on successful submits. |
 
 #### Callback Shape
@@ -22,8 +22,10 @@ FieldData = {
 }
 
 CallbackShape = {
+  data: { [fieldId: string]: FieldData },
+  state: { [key: string]: any },
   updateField: Function(fieldId: string, data: FieldData),
-  data: { [fieldId: string]: FieldData }
+  updateState: Function(newState: Object)
 }
 ```
 

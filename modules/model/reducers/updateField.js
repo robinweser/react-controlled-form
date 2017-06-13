@@ -21,13 +21,16 @@ export default function updateField(
     ...state,
     [formId]: {
       ...state[formId],
-      [fieldId]: composeFieldData(state[formId][fieldId], {
-        isEnabled,
-        isRequired,
-        isValid,
-        isTouched: isTouched || true,
-        value
-      })
+      data: {
+        ...state[formId].data,
+        [fieldId]: composeFieldData(state[formId].data[fieldId], {
+          isEnabled,
+          isRequired,
+          isValid,
+          isTouched: isTouched || true,
+          value
+        })
+      }
     }
   }
 }

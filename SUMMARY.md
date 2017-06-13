@@ -14,6 +14,8 @@
   * [3.4. Form Validation](docs/guides/FormValidation.md)
   * [3.5. Validation Error](docs/guides/ValidationErrors.md)
   * [3.6. Handling Submit](docs/guides/HandlingSubmit.md)
+  * 3.7. Using Form State
+  * [3.8. Composition](docs/guides/Composition.md)
 * [4. API Reference](docs/API.md)
   * [4.1. Form](docs/api/Form.md)
   * [4.2. asField](docs/api/asField.md)

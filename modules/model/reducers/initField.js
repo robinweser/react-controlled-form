@@ -20,16 +20,19 @@ export default function initField(
     ...state,
     [formId]: {
       ...state[formId],
-      [fieldId]: composeFieldData(
-        {
-          value,
-          isEnabled,
-          isRequired,
-          isTouched: false,
-          isValid
-        },
-        state[formId][fieldId] || {}
-      )
+      data: {
+        ...state[formId].data,
+        [fieldId]: composeFieldData(
+          {
+            value,
+            isEnabled,
+            isRequired,
+            isTouched: false,
+            isValid
+          },
+          state[formId].data[fieldId] || {}
+        )
+      }
     }
   }
 }

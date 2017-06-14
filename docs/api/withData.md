@@ -4,7 +4,7 @@ It's basically a simplified & scoped convenient wrapper for react-redux's `conne
 It helps to provide form data to any React component.
 
 ## Arguments
-1. `mapDataToProps` (*Function?*): A function that maps the form data to the component props. It has the signature *(data, ownProps) => Object*. By default it passes the whole form data as the `data` prop. ownProps refers to the props passed to the enhanced component itself.
+1. `mapDataToProps` (*Function?*): A function that maps the form data to the component props. It has the signature *(data, ownProps) => Object*. By default it passes the whole form data as the `data` prop. ownProps refers to the props passed to the enhanced component itself. ownProps also contains the `formId` as well as the `isFormValid` which is also passed to [`asSubmit`](asSubmit.md).
 
 ## Returns
 (*Function*) HoC that is used to apply the data mapping

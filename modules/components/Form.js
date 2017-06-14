@@ -29,7 +29,7 @@ type FormProps = {
 class Form extends Component {
   static childContextTypes = {
     formId: PropTypes.string.isRequired,
-    isValid: PropTypes.bool.isRequired,
+    isFormValid: PropTypes.bool.isRequired,
     submitForm: PropTypes.func.isRequired
   }
 
@@ -45,7 +45,7 @@ class Form extends Component {
     return {
       formId: this.props.formId,
       submitForm: this.onSubmit,
-      isValid: this.validate()
+      isFormValid: this.validate()
     }
   }
 

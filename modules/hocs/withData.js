@@ -12,7 +12,8 @@ export default function withData(
     mapDataToProps(form[ownProps.formId].data, ownProps)
 
   return (component: any) =>
-    compose(getContext({ formId: PropTypes.string }), connect(mapStateToProps))(
-      component
-    )
+    compose(
+      getContext({ formId: PropTypes.string, isFormValid: PropTypes.bool }),
+      connect(mapStateToProps)
+    )(component)
 }

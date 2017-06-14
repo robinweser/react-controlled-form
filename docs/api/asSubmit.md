@@ -12,7 +12,7 @@ All props automatically update if a change is triggered for this field.
 | Prop | Type | Description |
 | --- | --- | --- |
 | submitForm | (*Function*) | Submits the wrapping form and triggers the onSubmit event. |
-| isValid | (*Boolean*) | Indicates if the whole form is valid. |
+| isFormValid | (*Boolean*) | Indicates if the whole form is valid. |
 
 ## Returns
 (*ReactComponent*) Enhanced React component
@@ -34,4 +34,4 @@ const Submit = asSubmit(SubmitButton)
 
 ## Tips & Tricks
 
-* You may use `isValid` to change the visual appearance of your submit button. This helps the user to better identify if the form can actually be submitted. For example, you may reduce the CSS `opacity` if it's invalid.
+* You may use `isFormValid` to change the visual appearance of your submit button. This helps the user to better identify if the form can actually be submitted. For example, you may reduce the CSS `opacity` if it's invalid.

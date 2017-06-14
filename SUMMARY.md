@@ -23,3 +23,4 @@
   * [4.3. asSubmit](docs/api/asSubmit.md)
   * [4.4. asReset](docs/api/asReset.md)
   * [4.5. withData](docs/api/withData.md)
+  * [4.6. withState](docs/api/withState.md)

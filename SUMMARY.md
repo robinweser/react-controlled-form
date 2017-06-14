@@ -7,6 +7,7 @@
 * [2. Basics](docs/Basics.md)
   * [2.1. Forms](docs/basics/Forms.md)
   * [2.2. Fields](docs/basics/Fields.md)
+  * [2.3. State](docs/basics/State.md)
 * [3. Guides](docs/Guides.md)
   * [3.1. Store Setup](docs/guides/StoreSetup.md)
   * [3.2. Form Initialization](docs/guides/FormInitialization.md)
@@ -14,7 +15,7 @@
   * [3.4. Form Validation](docs/guides/FormValidation.md)
   * [3.5. Validation Error](docs/guides/ValidationErrors.md)
   * [3.6. Handling Submit](docs/guides/HandlingSubmit.md)
-  * 3.7. Using Form State
+  * [3.7. Using Form State](docs/guides/UsingFormState.md)
   * [3.8. Composition](docs/guides/Composition.md)
 * [4. API Reference](docs/API.md)
   * [4.1. Form](docs/api/Form.md)

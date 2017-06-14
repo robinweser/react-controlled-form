@@ -4,7 +4,7 @@ Probably the most common HoC. It is used to turn any ordinary React component in
 
 ## Arguments
 1. `component` (*ReactComponent*): A React component that gets enhanced.
-3. `defaultField` (*Object?*): Default field data that applies to every `component`. The data will be overwritten by `initialFields` passed to the wrapping `<Form>` component.
+3. `defaultField` (*Object|Function?*): Default field data that applies to every `component`. The data will be overwritten by `initialFields` passed to the wrapping `<Form>` component. It may  either be passed as an object or as function of props that returns an object.
 
 #### Props
 The `component` receives a set of props that are passed down by the HoC.

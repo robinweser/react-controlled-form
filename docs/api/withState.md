@@ -30,5 +30,5 @@ const mapStateToProps = ({ accepted_terms }) => ({
   accepted_terms
 })
 
-export default withData(mapStateToProps)(Warning)
+export default withState(mapStateToProps)(Warning)
 ```

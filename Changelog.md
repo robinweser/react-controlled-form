@@ -2,6 +2,9 @@
 
 ## 1.0
 
+#### 1.1.1
+* `asField`'s second parameter `defaultField` now also accepts a function of props that returns the default field data as an object
+
 #### 1.1.0
 
 #### Form State

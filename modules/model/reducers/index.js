@@ -9,7 +9,6 @@ import {
   INIT_FIELD,
   UPDATE_FIELD,
   INIT_FORM,
-  RESET_FORM,
   UPDATE_STATE
 } from '../actionTypes'
 
@@ -17,7 +16,6 @@ const actions = {
   [INIT_FIELD]: initField,
   [UPDATE_FIELD]: updateField,
   [INIT_FORM]: initForm,
-  [RESET_FORM]: initForm,
   [UPDATE_STATE]: updateState
 }
 

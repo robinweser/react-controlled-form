@@ -5,7 +5,11 @@ import { connect } from 'react-redux'
 import { shallowEqual } from 'recompose'
 
 import objectReduce from '../utils/objectReduce'
-import { initForm, resetForm, updateField, updateState } from '../model/actions'
+import {
+  initForm as initFormAction,
+  updateField as updateFieldAction,
+  updateState as updateStateAction
+} from '../model/actions'
 
 import type { Field } from '../../types/Field'
 
@@ -21,7 +25,6 @@ type FormProps = {
   data: Object,
   state: Object,
   initForm: Function,
-  resetForm: Function,
   updateField: Function,
   updateState: Function
 }
@@ -30,14 +33,14 @@ class Form extends Component {
   static childContextTypes = {
     formId: PropTypes.string.isRequired,
     isFormValid: PropTypes.bool.isRequired,
-    submitForm: PropTypes.func.isRequired
+    submitForm: PropTypes.func.isRequired,
+    resetForm: PropTypes.func.isRequired
   }
 
   constructor(props, context) {
     super(props, context)
 
     const { initForm, initialFields, initialState } = props
-
     initForm(initialFields, initialState)
   }
 
@@ -45,12 +48,21 @@ class Form extends Component {
     return {
       formId: this.props.formId,
       submitForm: this.onSubmit,
+      resetForm: this.onReset,
       isFormValid: this.validate()
     }
   }
 
   componentWillReceiveProps(newProps) {
     const { data, state, updateField, updateState, onChange } = this.props
+
+    // hook to save the initial data and state
+    // after all fields have been initialized
+    if (!this.initialized) {
+      this.initialFields = newProps.data
+      this.initialState = newProps.state
+      this.initialized = true
+    }
 
     if (
       onChange &&
@@ -73,7 +85,7 @@ class Form extends Component {
       data,
       state,
       updateField,
-      resetForm,
+      updateState,
       enableDefault,
       onSubmit
     } = this.props
@@ -84,13 +96,17 @@ class Form extends Component {
         state,
         updateField,
         updateState,
-        resetForm
+        resetForm: this.onReset
       })
     }
 
     if (event && event.preventDefault && !enableDefault) {
       event.preventDefault()
     }
+  }
+
+  onReset = () => {
+    this.props.initForm(this.initialFields, this.initialState)
   }
 
   validate = () => {
@@ -104,6 +120,9 @@ class Form extends Component {
   }
 
   props: FormProps
+  initialFields: { [fieldId: string]: Field }
+  initialState: Object
+  initialized: boolean
 
   render() {
     const {
@@ -124,17 +143,16 @@ class Form extends Component {
 }
 
 const mapStateToProps = ({ form }: Object, { formId }: Object) => ({
-  data: form[formId].data,
-  state: form[formId].state
+  data: form[formId] && form[formId].data,
+  state: form[formId] && form[formId].state
 })
 
 const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
   initForm: (initialFields: Object, initialState: Object) =>
-    dispatch(initForm({ formId, initialFields, initialState })),
-  resetForm: () => dispatch(resetForm(formId)),
+    dispatch(initFormAction({ formId, initialFields, initialState })),
   updateField: (fieldId: string, fieldData: Field) =>
     dispatch(
-      updateField({
+      updateFieldAction({
         formId,
         fieldId,
         ...fieldData
@@ -142,7 +160,7 @@ const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
     ),
   updateState: (newState: Object) =>
     dispatch(
-      updateState({
+      updateStateAction({
         formId,
         newState
       })

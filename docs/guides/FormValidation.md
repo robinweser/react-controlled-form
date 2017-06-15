@@ -6,6 +6,7 @@ Validation is an important part for most forms. There are two ways to perform va
 We are able to validate the whole form by passing a [`validate`](../api/Form.md#props) function to our wrapping [`<Form>`](../api/Form.md) component.<br>
 This is primarily useful for special cross-validation cases where multiple field values are validated together.
 
+
 #### Example
 ```javascript
 import { Form } from 'react-controlled-form'
@@ -25,6 +26,8 @@ export default () => (
 
 ## Per-Field Validation
 Although we are already able to validate the whole form, it is often much simpler and more intuitive to allocate validation with each field.<br>
+
+### On User Input
 The most common way is to validate on user input.
 
 #### Example
@@ -59,3 +62,10 @@ const Age = ({ updateField, value, isValid }) => {
 
 export default asField(Age)
 ```
+
+### On Blur
+Another very common way is to trigger validation as soon as the user leaves the input field. This can be done using the built-in HTML `onBlur` event.
+The most common way is to validate on user input.
+
+#### Example
+> Coming soon.

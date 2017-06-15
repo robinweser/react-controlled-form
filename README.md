@@ -14,8 +14,6 @@ yarn add react-controlled-form react react-redux redux
 ```
 > Controlled Forms requires `react-redux` to be installed in your project. Therefore, `react` and `redux` must also be installed.
 
-
-
 ## Benefits
 * simple functional API
 * Redux-driven state management
@@ -82,7 +80,9 @@ export default () => (
 * [API Reference](https://react-controlled-form.js.org/docs/API.html)
 
 ## Examples
-> Examples are coming soon.
+
+* [Simple Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#simple-example) ([demo](https://zeit.co/rofrischmann/simple-form/prtnrlnhry?redirect=1) | [source](examples/simple))
+* [Validation Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#validation-example) ([demo](https://form-validation-ofeqqxcijq.now.sh) | [source](examples/validation))
 
 
 ## License

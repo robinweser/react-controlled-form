@@ -8,3 +8,4 @@
 * [Handling Submit](guides/HandlingSubmit.md)
 * [Using Form State](guides/UsingFormState.md)
 * [Composition](guides/Composition.md)
+* [Debugging Forms](guides/DebuggingForms.md)

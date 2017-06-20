@@ -81,9 +81,9 @@ export default () => (
 
 ## Examples
 
-* [Simple Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#simple-example) ([demo](https://zeit.co/rofrischmann/simple-form/prtnrlnhry?redirect=1) | [source](examples/simple))
-* [Validation Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#validation-example) ([demo](https://form-validation-ofeqqxcijq.now.sh) | [source](examples/validation))
-
+* [Simple Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#simple) ([demo](https://zeit.co/rofrischmann/simple-form/prtnrlnhry?redirect=1) | [source](examples/simple))
+* [Validation Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#validation) ([demo](https://form-validation-ofeqqxcijq.now.sh) | [source](examples/validation))
+* [Third-Party Component  Example](https://react-controlled-form.js.org/docs/introduction/Examples.html#third-party-component) ([demo](https://third-party-component-plkhgscjcf.now.sh) | [source](examples/third-party-component))
 
 ## License
 react-controlled-form is licensed under the [MIT License](http://opensource.org/licenses/MIT).<br>

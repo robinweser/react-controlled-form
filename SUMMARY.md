@@ -17,6 +17,8 @@
   * [3.6. Handling Submit](docs/guides/HandlingSubmit.md)
   * [3.7. Using Form State](docs/guides/UsingFormState.md)
   * [3.8. Composition](docs/guides/Composition.md)
+  * [3.9. Using Third-Party Components](docs/guides/ThirdPartyComponent.md)
+  * [4.0. Debugging Forms](docs/guides/DebuggingForms.md)
 * [4. API Reference](docs/API.md)
   * [4.1. Form](docs/api/Form.md)
   * [4.2. asField](docs/api/asField.md)

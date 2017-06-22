@@ -12,7 +12,7 @@ export default function updateField(
       value,
       isEnabled,
       isRequired,
-      isTouched,
+      isTouched = true,
       isValid
     }
   }: Action
@@ -27,7 +27,7 @@ export default function updateField(
           isEnabled,
           isRequired,
           isValid,
-          isTouched: isTouched || true,
+          isTouched: isTouched,
           value
         })
       }

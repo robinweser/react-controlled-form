@@ -27,7 +27,7 @@ export default function updateField(
           isEnabled,
           isRequired,
           isValid,
-          isTouched: isTouched,
+          isTouched,
           value
         })
       }

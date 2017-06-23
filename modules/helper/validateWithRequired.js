@@ -1,6 +1,4 @@
 /* @flow */
-import type { Field } from '../../types/Field'
-
 function isFalsyValue(value: any) {
   const valueType = typeof value
 

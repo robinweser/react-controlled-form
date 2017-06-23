@@ -2,6 +2,12 @@
 
 Validation is an important part for most forms. There are two ways to perform validation.
 
+* [Global Validation](#global-validation)
+* [Per-Field Validation](#per-field-validation)
+  * [On User Input](#on-user-input)
+  * [On Blur](#on-blur)
+  * [On Submit](#on-submit)
+
 ## Global Validation
 We are able to validate the whole form by passing a [`validate`](../api/Form.md#props) function to our wrapping [`<Form>`](../api/Form.md) component.<br>
 This is primarily useful for special cross-validation cases where multiple field values are validated together.
@@ -41,11 +47,11 @@ function validate(value) {
 
 const Age = ({ updateField, value, isValid }) => {
   function onInput(e) {
-    const value = e.target.value
+    const nextValue = e.target.value
 
     updateField({
-      isValid: validate(value),
-      value
+      isValid: validate(nextValue),
+      nextValue
     })
   }
 
@@ -54,6 +60,7 @@ const Age = ({ updateField, value, isValid }) => {
       value={value}
       onInput={onInput}
       style={{
+        // simple way to indicate field validation
         color: isValid ? 'green' : 'red'
       }}
     />
@@ -63,9 +70,60 @@ const Age = ({ updateField, value, isValid }) => {
 export default asField(Age)
 ```
 
+---
+
 ### On Blur
 Another very common way is to trigger validation as soon as the user leaves the input field. This can be done using the built-in HTML `onBlur` event.
-The most common way is to validate on user input.
+We will utilize the `isTouched` indicator to only show visible validation on blur. As react-controlled-form automatically sets `isTouched` to `true` as on `updateField`, we have to force the opposite.
+
+> In addition, you could also use the `onFocus`-event to set `isTouched` to `false` again.
+
+#### Example
+```javascript
+import { asField } from 'react-controlled-form'
+
+function validate(value) {
+  return value.match(/^\d+$/) !== null && parseInt(value) > 0
+}
+
+const Age = ({ updateField, value, isValid, isTouched }) => {
+  function onInput(e) {
+    const nextValue = e.target.value
+
+    updateField({
+      isValid: validate(nextValue),
+      // forcing isTouched: false
+      isTouched: false,
+      value: nextValue
+    })
+  }
+
+  function onBlur() {
+    updateField({
+      isTouched: true
+    })
+  }
+
+  return (
+    <input
+      value={value}
+      onBlur={onBlur}
+      onInput={onInput}
+      style={{
+        // if its touched show the validation color
+        // if not just remain black
+        color: isTouched ? (isValid ? 'green' : 'red') : 'black'
+      }}
+    />
+  )
+}
+
+export default asField(Age)
+```
+
+---
+### On Submit
+The final common validation pattern probably is on Form submit.
 
 #### Example
 > Coming soon.

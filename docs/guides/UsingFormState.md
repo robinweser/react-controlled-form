@@ -5,7 +5,7 @@ This comes in very handy for complex forms with several different validation sta
 
 For example, we might want to validate multiple fields at a time and set different keys for each validation case.
 
-## Example
+### Example
 ```javascript
 import { Form } from 'react-controlled-form'
 

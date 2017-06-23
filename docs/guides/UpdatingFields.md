@@ -12,6 +12,10 @@ With every update we are able to change any of the [field data properties](../ba
 
 > If not set differently, `isTouched` will be set to `true` by default.
 
+There are basically two common cases where we update our field data.
+* [Update on User Input](#update-on-user-input)
+* [Update on Form Change](#update-on-form-change)
+
 ## Update on User Input
 The most common use case is to update the field value on user input. Thanks to React's synthetic events, this task is pretty simple for any built-in form field.
 

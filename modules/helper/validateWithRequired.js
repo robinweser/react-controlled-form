@@ -13,7 +13,7 @@ function isFalsyValue(value: any) {
   return false
 }
 
-export default function validateWithRequired({ isRequired, value }: Field) {
+export default function validateWithRequired(value: any, isRequired: boolean) {
   if (isRequired) {
     return !isFalsyValue(value)
   }

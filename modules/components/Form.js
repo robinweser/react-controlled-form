@@ -62,6 +62,8 @@ class Form extends Component {
       this.initialFields = newProps.data
       this.initialState = newProps.state
       this.initialized = true
+      // we won't call onChange during initialization
+      return
     }
 
     if (

@@ -3,10 +3,13 @@ import { asField, validateWithRequired } from '../modules'
 
 type InputProps = {
   value: any,
+  state: Object,
   isValid: boolean,
   isRequired: boolean,
+  isTouched: boolean,
   isEnabled: boolean,
   updateField: Function,
+  updateState: Function,
   validate?: Function,
   otherProps: any
 }
@@ -15,10 +18,13 @@ const defaultValidate = () => true
 
 const Input = ({
   value,
+  state,
   isValid,
   isRequired,
   isEnabled,
+  isTouched,
   updateField,
+  updateState,
   validate = defaultValidate,
   ...otherProps
 }: InputProps) => {
@@ -26,8 +32,7 @@ const Input = ({
     const newValue = e.target.value
 
     const isValid =
-      validateWithRequired({ value: newValue, isRequired }) &&
-      validate(newValue)
+      validateWithRequired(newValue, isRequired) && validate(newValue)
 
     updateField({
       value: newValue,
@@ -46,8 +51,12 @@ const Input = ({
   )
 }
 
-export default asField(Input, ({ defaultValue, required, disabled }) => ({
-  value: defaultValue,
-  isRequired: required,
-  isEnabled: !disabled
-}))
+export default asField(
+  Input,
+  ({ defaultValue = '', required = false, disabled = false }) => ({
+    value: defaultValue,
+    isValid: validateWithRequired(defaultValue, required),
+    isRequired: required,
+    isEnabled: !disabled
+  })
+)

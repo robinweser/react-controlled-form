@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "files": [

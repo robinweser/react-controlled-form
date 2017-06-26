@@ -2,6 +2,9 @@
 
 ## 1.0
 
+#### 1.1.7
+* do not call `onChange` during form initialization
+
 #### 1.1.6
 * fixed a bug where `isTouched` was not updated correctly
 

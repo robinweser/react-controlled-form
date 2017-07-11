@@ -50,7 +50,7 @@ function InputField({
 
 function SubmitButton({ submitForm }) {
   return (
-    <button onClick={sumbitForm}>
+    <button onClick={submitForm}>
       Submit
     </button>
   )

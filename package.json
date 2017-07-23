@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "1.1.7",
+  "version": "1.2.1",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "files": [
@@ -11,12 +11,12 @@
   ],
   "scripts": {
     "babel": "rimraf lib && babel -d lib modules",
-    "check": "npm run format && npm run lint && npm run flow && npm run test:coverage",
+    "check": "yarn run format && yarn run lint && yarn run flow && yarn run test:coverage",
     "docs": "gitbook install && gitbook build && gh-pages -d _book",
     "flow": "flow modules",
     "format": "prettier --single-quote --no-semi --jsx-bracket-same-line --write \"modules/**/*.js\"",
     "lint": "eslint modules",
-    "release": "npm run check && npm run babel && npm publish",
+    "release": "yarn run check && yarn run babel && yarn publish",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },

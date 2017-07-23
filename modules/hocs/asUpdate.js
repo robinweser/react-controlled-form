@@ -8,6 +8,8 @@ import {
   updateState as updateStateAction
 } from '../model/actions'
 
+import type { Field } from '../../types/Field'
+
 export default function asUpdate(component: any): any {
   const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
     updateField: (fieldId: string, fieldData: Field) =>

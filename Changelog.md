@@ -2,6 +2,16 @@
 
 ## 1.0
 
+### 1.2
+
+#### 1.2.0
+##### API
+* introducing `asUpdate` to inject `updateField` and `updateState` into any React component
+
+-------
+
+### 1.1
+
 #### 1.1.7
 * do not call `onChange` during form initialization
 
@@ -26,16 +36,18 @@
 
 #### 1.1.0
 
-#### Form State
+##### Form State
 * added the `withState`-HOC to provide form state to components
 * now passing `state` and `updateState` to both Form's `onChange` and `onSubmit`
 * passing `state` and `updateState` to the `asField`-HOC
 
-#### Improvements
+##### Improvements
 * added the `ownProps` (second) parameter to `withData`- and `withState`-HOC
 * added the `defaultData` (second) parameter to the `asField`-HOC
 * passing `previousData` to Form's `onChange`
 * Ability to disable auto-execution of `event.preventDefault` on submit
+
+-------
 
 #### 1.0.0
 Initial Release

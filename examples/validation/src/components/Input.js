@@ -6,32 +6,42 @@ type InputProps = {
   value: any,
   updateField: Function,
   validate?: Function,
+  isRequired: boolean,
+  isTouched: boolean,
   isValid: boolean,
-  fieldId: string
+  placeholder: string,
 }
 
 const Input = ({
   updateField,
   value,
+  isRequired,
+  isTouched,
   isValid,
-  fieldId,
+  placeholder,
   validate = () => true
 }: InputProps) => {
-  function onInput(e) {
-    const newValue = e.target.value
+  function onChange(e) {
+    const newValue = e.target.value;
 
     updateField({
       value: newValue,
       isValid: validate(newValue)
-    })
+    });
   }
 
   return (
     <input
       value={value}
-      onInput={onInput}
-      placeholder={fieldId}
-      style={{ backgroundColor: isValid ? 'inherit' : 'red' }}
+      onChange={onChange}
+      placeholder={placeholder}
+      required={isRequired}
+      style={{
+        backgroundColor: isTouched && !isValid ? 'red' : 'inherit',
+        display: 'block',
+        marginBottom: '1em',
+        marginTop: '0.5em',
+      }}
     />
   )
 }

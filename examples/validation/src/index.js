@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Form, mapDataToValues } from 'react-controlled-form'
+import { Form, mapDataToValues, validateWithRequired } from 'react-controlled-form'
 
 import Submit from './components/Submit'
 import Input from './components/Input'
@@ -14,20 +14,42 @@ function onSubmit({ data, resetForm }) {
   resetForm()
 }
 
+const initialFields = {
+  name: {
+    isTouched: true,
+    isValid: true,
+    value: "Prepopulated",
+  },
+  age: {
+    isValid: false,
+  }
+};
+
 const render = () =>
   ReactDOM.render(
     <Provider store={store}>
-      <Form formId="validation" onSubmit={onSubmit}>
+      <Form formId="validation" initialFields={initialFields} onSubmit={onSubmit}>
         <div>
           <h1>Validation Example</h1>
-          <br />
+          <label>Name&#42;</label>
           <Input
             fieldId="name"
-            validate={value => value.match(/^[a-zA-z]*$/) !== null}
+            isRequired
+            placeholder="Prepopulated required field"
+            validate={value => validateWithRequired(value, true) && value.match(/^[a-zA-z]*$/) !== null}
           />
+          <label>Age&#42;</label>
           <Input
             fieldId="age"
-            validate={value => value.match(/^[0-9]*$/) !== null}
+            isRequired
+            placeholder="Required field"
+            validate={value => validateWithRequired(value, true) && value.match(/^[0-9]*$/) !== null}
+          />
+          <label>Description</label>
+          <Input
+            fieldId="description"
+            placeholder="Optional field"
+            validate={value => value.match(/^[a-zA-z]*$/) !== null}
           />
           <Submit />
           <br />

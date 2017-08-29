@@ -134,7 +134,6 @@ class Form extends Component {
       onChange,
       data,
       state,
-      initialFields,
       initForm,
       updateField,
       updateState,

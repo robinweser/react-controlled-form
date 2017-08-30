@@ -1,76 +1,76 @@
 {
-  "name": "react-controlled-form",
-  "version": "1.2.1",
-  "description": "Controlled Forms for React and Redux",
-  "main": "lib/index.js",
-  "files": [
-    "LICENSE",
-    "README.md",
-    "Changelog.md",
-    "lib/"
-  ],
-  "scripts": {
-    "babel": "rimraf lib && babel -d lib modules",
-    "check": "yarn run format && yarn run lint && yarn run flow && yarn run test:coverage",
-    "docs": "gitbook install && gitbook build && gh-pages -d _book",
-    "flow": "flow modules",
-    "format": "prettier --single-quote --no-semi --jsx-bracket-same-line --write \"modules/**/*.js\"",
-    "lint": "eslint modules",
-    "release": "yarn run check && yarn run babel && yarn publish",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
-  },
-  "repository": "https://github.com/rofrischmann/react-controlled-form",
-  "author": "Robin Frischmann",
-  "license": "MIT",
-  "jest": {
-    "rootDir": "modules"
-  },
-  "keywords": [
-    "react",
-    "react-form",
-    "form",
-    "redux-form",
-    "form-management",
-    "controlled-form"
-  ],
-  "dependencies": {
-    "prop-types": "^15.5.10",
-    "recompose": "^0.23.5",
-    "redux-actions": "^2.0.3"
-  },
-  "peerDependencies": {
-    "react": "^15.5.4",
-    "react-redux": "^5.0.5"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.22.1",
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^18.0.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.22.0",
-    "codeclimate-test-reporter": "^0.4.0",
-    "eslint": "^3.14.1",
-    "eslint-config-airbnb": "^14.0.0",
-    "eslint-plugin-flowtype": "^2.30.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.9.0",
-    "flow-bin": "^0.40.0",
-    "gh-pages": "^1.0.0",
-    "gitbook-cli": "^2.3.0",
-    "gitbook-plugin-advanced-emoji": "^0.2.2",
-    "gitbook-plugin-anker-enable": "0.0.4",
-    "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-prism": "^2.2.0",
-    "jest": "^18.1.0",
-    "prettier": "^1.3.1",
-    "react": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "rimraf": "^2.6.1"
-  }
+    "name": "react-controlled-form",
+    "version": "1.2.2",
+    "description": "Controlled Forms for React and Redux",
+    "main": "lib/index.js",
+    "files": [
+        "LICENSE",
+        "README.md",
+        "Changelog.md",
+        "lib/"
+    ],
+    "scripts": {
+        "babel": "rimraf lib && babel -d lib modules",
+        "check": "yarn run format && yarn run lint && yarn run flow && yarn run test:coverage",
+        "docs": "gitbook install && gitbook build && gh-pages -d _book",
+        "flow": "flow modules",
+        "format": "prettier --single-quote --no-semi --jsx-bracket-same-line --write \"modules/**/*.js\"",
+        "lint": "eslint modules",
+        "release": "yarn run check && yarn run babel && npm publish",
+        "test": "jest",
+        "test:coverage": "jest --coverage"
+    },
+    "repository": "https://github.com/rofrischmann/react-controlled-form",
+    "author": "Robin Frischmann",
+    "license": "MIT",
+    "jest": {
+        "rootDir": "modules"
+    },
+    "keywords": [
+        "react",
+        "react-form",
+        "form",
+        "redux-form",
+        "form-management",
+        "controlled-form"
+    ],
+    "dependencies": {
+        "prop-types": "^15.5.10",
+        "recompose": "^0.23.5",
+        "redux-actions": "^2.0.3"
+    },
+    "peerDependencies": {
+        "react": "^15.5.4",
+        "react-redux": "^5.0.5"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-core": "^6.22.1",
+        "babel-eslint": "^7.1.1",
+        "babel-jest": "^18.0.0",
+        "babel-plugin-add-module-exports": "^0.2.1",
+        "babel-preset-es2015": "^6.22.0",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-stage-0": "^6.22.0",
+        "codeclimate-test-reporter": "^0.4.0",
+        "eslint": "^3.14.1",
+        "eslint-config-airbnb": "^14.0.0",
+        "eslint-plugin-flowtype": "^2.30.0",
+        "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-jsx-a11y": "^3.0.2",
+        "eslint-plugin-react": "^6.9.0",
+        "flow-bin": "^0.40.0",
+        "gh-pages": "^1.0.0",
+        "gitbook-cli": "^2.3.0",
+        "gitbook-plugin-advanced-emoji": "^0.2.2",
+        "gitbook-plugin-anker-enable": "0.0.4",
+        "gitbook-plugin-edit-link": "^2.0.2",
+        "gitbook-plugin-github": "^2.0.0",
+        "gitbook-plugin-prism": "^2.2.0",
+        "jest": "^18.1.0",
+        "prettier": "^1.3.1",
+        "react": "^15.5.4",
+        "react-redux": "^5.0.5",
+        "rimraf": "^2.6.1"
+    }
 }

@@ -4,6 +4,9 @@
 
 ### 1.2
 
+#### 1.2.2
+* do not pass `initialFields` to the underlaying `<form>`-element
+
 #### 1.2.0
 ##### API
 * introducing `asUpdate` to inject `updateField` and `updateState` into any React component

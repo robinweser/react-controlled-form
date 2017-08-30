@@ -23,10 +23,11 @@
   * 4.1. Core
     * [4.1.1. Form](docs/api/core/Form.md)
     * [4.1.2. asField](docs/api/core/asField.md)
-    * [4.1.3. asSubmit](docs/api/core/asSubmit.md)
-    * [4.1.4. asReset](docs/api/core/asReset.md)
-    * [4.1.5. withData](docs/api/core/withData.md)
-    * [4.1.6. withState](docs/api/core/withState.md)
+    * [4.1.3. asUpdate](docs/api/core/asUpdate.md)
+    * [4.1.4. asSubmit](docs/api/core/asSubmit.md)
+    * [4.1.5. asReset](docs/api/core/asReset.md)
+    * [4.1.6. withData](docs/api/core/withData.md)
+    * [4.1.7. withState](docs/api/core/withState.md)
   * 4.2. Utilities
     * [4.2.1. mapDataToValues](docs/api/utils/mapDataToValues.md)
     * [4.2.2. validateWithRequired](docs/api/utils/validateWithRequired.md)

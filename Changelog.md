@@ -4,7 +4,7 @@
 
 ### 1.2
 
-#### 1.2.2
+#### 1.2.3
 * do not pass `initialFields` to the underlaying `<form>`-element
 
 #### 1.2.0

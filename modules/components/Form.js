@@ -141,7 +141,7 @@ class Form extends Component {
       ...otherProps
     } = this.props
 
-    return <form {...otherProps} onSubmit={onSubmit} />
+    return <form {...otherProps} onSubmit={this.onSubmit} />
   }
 }
 

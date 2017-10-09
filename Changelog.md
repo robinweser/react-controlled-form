@@ -4,6 +4,9 @@
 
 ### 1.2
 
+#### 1.2.4
+* pass the enhanced `onSubmit` rather than the pure `onSubmit` to the form
+
 #### 1.2.3
 * do not pass `initialFields` to the underlaying `<form>`-element
 

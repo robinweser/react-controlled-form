@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "files": [
@@ -23,9 +23,6 @@
   "repository": "https://github.com/rofrischmann/react-controlled-form",
   "author": "Robin Frischmann",
   "license": "MIT",
-  "jest": {
-    "rootDir": "modules"
-  },
   "keywords": [
     "react",
     "react-form",

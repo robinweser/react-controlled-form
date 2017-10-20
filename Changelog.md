@@ -4,6 +4,9 @@
 
 ### 1.2
 
+### 1.2.5
+* do not pass `initialState` to the underlaying `<form>`-element
+	
 #### 1.2.4
 * pass the enhanced `onSubmit` rather than the pure `onSubmit` to the form
 

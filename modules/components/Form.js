@@ -135,6 +135,7 @@ class Form extends Component {
       data,
       state,
       initialFields,
+      initialState,
       initForm,
       updateField,
       updateState,

@@ -3,32 +3,9 @@ import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
 
-import {
-  updateField as updateFieldAction,
-  updateState as updateStateAction
-} from '../model/actions'
-
-import type { Field } from '../../types/Field'
+import { mapDispatchToProps } from '../mapping/update'
 
 export default function asUpdate(component: any): any {
-  const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
-    updateField: (fieldId: string, fieldData: Field) =>
-      dispatch(
-        updateFieldAction({
-          formId,
-          fieldId,
-          ...fieldData
-        })
-      ),
-    updateState: newState =>
-      dispatch(
-        updateStateAction({
-          formId,
-          newState
-        })
-      )
-  })
-
   return compose(
     getContext({ formId: PropTypes.string }),
     connect(undefined, mapDispatchToProps)

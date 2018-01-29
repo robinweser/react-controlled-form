@@ -8,7 +8,7 @@ import objectReduce from '../utils/objectReduce'
 import {
   initForm as initFormAction,
   updateField as updateFieldAction,
-  updateState as updateStateAction
+  updateState as updateStateAction,
 } from '../model/actions'
 
 import type { Field } from '../../types/Field'
@@ -26,7 +26,7 @@ type FormProps = {
   state: Object,
   initForm: Function,
   updateField: Function,
-  updateState: Function
+  updateState: Function,
 }
 
 class Form extends Component {
@@ -34,14 +34,13 @@ class Form extends Component {
     formId: PropTypes.string.isRequired,
     isFormValid: PropTypes.bool.isRequired,
     submitForm: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired
+    resetForm: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
     super(props, context)
 
-    const { initForm, initialFields, initialState } = props
-    initForm(initialFields, initialState)
+    props.initForm(props.initialFields, props.initialState)
   }
 
   getChildContext() {
@@ -49,7 +48,7 @@ class Form extends Component {
       formId: this.props.formId,
       submitForm: this.onSubmit,
       resetForm: this.onReset,
-      isFormValid: this.validate()
+      isFormValid: this.validate(),
     }
   }
 
@@ -77,7 +76,7 @@ class Form extends Component {
         state: newProps.state,
         previousState: state,
         updateField,
-        updateState
+        updateState,
       })
     }
   }
@@ -89,7 +88,7 @@ class Form extends Component {
       updateField,
       updateState,
       enableDefault,
-      onSubmit
+      onSubmit,
     } = this.props
 
     if (onSubmit) {
@@ -98,7 +97,7 @@ class Form extends Component {
         state,
         updateField,
         updateState,
-        resetForm: this.onReset
+        resetForm: this.onReset,
       })
     }
 
@@ -148,7 +147,7 @@ class Form extends Component {
 
 const mapStateToProps = ({ form }: Object, { formId }: Object) => ({
   data: form[formId] && form[formId].data,
-  state: form[formId] && form[formId].state
+  state: form[formId] && form[formId].state,
 })
 
 const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
@@ -159,16 +158,16 @@ const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
       updateFieldAction({
         formId,
         fieldId,
-        ...fieldData
+        ...fieldData,
       })
     ),
   updateState: (newState: Object) =>
     dispatch(
       updateStateAction({
         formId,
-        newState
+        newState,
       })
-    )
+    ),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

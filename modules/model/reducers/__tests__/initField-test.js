@@ -18,11 +18,11 @@ describe('Initializing a form field', () => {
             isEnabled: true,
             isTouched: false,
             isRequired: false,
-            isValid: true
-          }
+            isValid: true,
+          },
         },
-        state: {}
-      }
+        state: {},
+      },
     })
   })
 
@@ -35,7 +35,7 @@ describe('Initializing a form field', () => {
           fieldId: 'bar',
           isValid: false,
           isRequired: true,
-          value: true
+          value: true,
         })
       )
     ).toEqual({
@@ -46,11 +46,11 @@ describe('Initializing a form field', () => {
             isEnabled: true,
             isTouched: false,
             isRequired: true,
-            isValid: false
-          }
+            isValid: false,
+          },
         },
-        state: {}
-      }
+        state: {},
+      },
     })
   })
 
@@ -63,18 +63,18 @@ describe('Initializing a form field', () => {
               bar: {
                 value: 'baz',
                 isValid: false,
-                isEnabled: false
-              }
+                isEnabled: false,
+              },
             },
-            state: {}
-          }
+            state: {},
+          },
         },
         payload({
           formId: 'foo',
           fieldId: 'bar',
           isValid: false,
           isRequired: true,
-          value: true
+          value: true,
         })
       )
     ).toEqual({
@@ -85,11 +85,11 @@ describe('Initializing a form field', () => {
             isEnabled: false,
             isTouched: false,
             isRequired: true,
-            isValid: false
-          }
+            isValid: false,
+          },
         },
-        state: {}
-      }
+        state: {},
+      },
     })
   })
 })

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0
+
+### 2.0
+
+#### 2.0.0
+This new major release adds new Component APIs leveraging the render-props pattern.<br>
+Check the documentation for more information.
+
 ## 1.0
 
 ### 1.2

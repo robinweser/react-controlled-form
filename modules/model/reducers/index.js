@@ -9,14 +9,14 @@ import {
   INIT_FIELD,
   UPDATE_FIELD,
   INIT_FORM,
-  UPDATE_STATE
+  UPDATE_STATE,
 } from '../actionTypes'
 
 const actions = {
   [INIT_FIELD]: initField,
   [UPDATE_FIELD]: updateField,
   [INIT_FORM]: initForm,
-  [UPDATE_STATE]: updateState
+  [UPDATE_STATE]: updateState,
 }
 
 export default handleActions(actions, {})

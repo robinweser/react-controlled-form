@@ -3,7 +3,7 @@ import {
   INIT_FIELD,
   UPDATE_FIELD,
   INIT_FORM,
-  UPDATE_STATE
+  UPDATE_STATE,
 } from './actionTypes'
 
 export const initField = createAction(INIT_FIELD)

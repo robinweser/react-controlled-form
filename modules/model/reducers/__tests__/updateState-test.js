@@ -3,7 +3,7 @@ import updateState from '../updateState'
 const payload = p => ({ payload: p })
 const initialFormState = {
   data: {},
-  state: { is_checked: false, another_valid: true }
+  state: { is_checked: false, another_valid: true },
 }
 
 describe('Updating form state', () => {
@@ -13,14 +13,18 @@ describe('Updating form state', () => {
         { foo: initialFormState },
         payload({
           formId: 'foo',
-          newState: { is_checked: true, something_valid: false }
+          newState: { is_checked: true, something_valid: false },
         })
       )
     ).toEqual({
       foo: {
         data: {},
-        state: { is_checked: true, something_valid: false, another_valid: true }
-      }
+        state: {
+          is_checked: true,
+          something_valid: false,
+          another_valid: true,
+        },
+      },
     })
   })
 })

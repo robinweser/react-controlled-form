@@ -5,7 +5,7 @@ describe('Mapping data to values', () => {
     expect(
       mapDataToValues({
         foo: { value: 'test', isValid: true },
-        bar: { value: true, isRequired: false }
+        bar: { value: true, isRequired: false },
       })
     ).toEqual({ foo: 'test', bar: true })
   })

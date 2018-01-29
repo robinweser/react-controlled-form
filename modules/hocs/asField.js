@@ -4,41 +4,9 @@ import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
 
-import {
-  initField as initFieldAction,
-  updateField as updateFieldAction,
-  updateState as updateStateAction
-} from '../model/actions'
+import { mapStateToProps, mapDispatchToProps } from '../mapping/field'
 
 import type { Field } from '../../types/Field'
-
-const mapStateToProps = ({ form }: Object, { fieldId, formId }: Object) => ({
-  data: form[formId].data[fieldId] || {},
-  state: form[formId].state
-})
-
-const mapDispatchToProps = (
-  dispatch: Function,
-  { fieldId, formId }: Object
-) => ({
-  initField: (fieldData: Field) =>
-    dispatch(initFieldAction({ formId, fieldId, ...fieldData })),
-  updateField: (fieldData: Field) =>
-    dispatch(
-      updateFieldAction({
-        formId,
-        fieldId,
-        ...fieldData
-      })
-    ),
-  updateState: newState =>
-    dispatch(
-      updateStateAction({
-        formId,
-        newState
-      })
-    )
-})
 
 type FieldProps = {
   formId: string,
@@ -47,8 +15,7 @@ type FieldProps = {
   initField: Function,
   updateField: Function,
   updateState: Function,
-
-  fieldId: string
+  fieldId: string,
 }
 
 export default function asField(

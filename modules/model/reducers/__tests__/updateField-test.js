@@ -8,10 +8,10 @@ const initialFormState = {
       isRequired: false,
       isEnabled: true,
       value: '',
-      isTouched: false
-    }
+      isTouched: false,
+    },
   },
-  state: {}
+  state: {},
 }
 
 describe('Updating form fields', () => {
@@ -29,11 +29,11 @@ describe('Updating form fields', () => {
             isEnabled: true,
             isTouched: true,
             isRequired: false,
-            isValid: true
-          }
+            isValid: true,
+          },
         },
-        state: {}
-      }
+        state: {},
+      },
     })
   })
 })

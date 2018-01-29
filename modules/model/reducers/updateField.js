@@ -13,8 +13,8 @@ export default function updateField(
       isEnabled,
       isRequired,
       isTouched = true,
-      isValid
-    }
+      isValid,
+    },
   }: Action
 ): Object {
   return {
@@ -28,9 +28,9 @@ export default function updateField(
           isRequired,
           isValid,
           isTouched,
-          value
-        })
-      }
-    }
+          value,
+        }),
+      },
+    },
   }
 }

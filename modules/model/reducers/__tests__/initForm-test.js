@@ -5,7 +5,7 @@ const payload = p => ({ payload: p })
 describe('Initializing a form', () => {
   it('should add default data, state and isValid', () => {
     expect(initForm({}, payload({ formId: 'foo' }))).toEqual({
-      foo: { data: {}, state: {} }
+      foo: { data: {}, state: {} },
     })
   })
 
@@ -18,12 +18,12 @@ describe('Initializing a form', () => {
           initialFields: {
             bar: {
               value: true,
-              isRequired: false
+              isRequired: false,
             },
             baz: {
-              isEnabled: false
-            }
-          }
+              isEnabled: false,
+            },
+          },
         })
       )
     ).toEqual({
@@ -31,14 +31,14 @@ describe('Initializing a form', () => {
         data: {
           bar: {
             value: true,
-            isRequired: false
+            isRequired: false,
           },
           baz: {
-            isEnabled: false
-          }
+            isEnabled: false,
+          },
         },
-        state: {}
-      }
+        state: {},
+      },
     })
   })
 
@@ -49,15 +49,15 @@ describe('Initializing a form', () => {
         payload({
           formId: 'foo',
           initialState: {
-            did_check: true
-          }
+            did_check: true,
+          },
         })
       )
     ).toEqual({
       foo: {
         data: {},
-        state: { did_check: true }
-      }
+        state: { did_check: true },
+      },
     })
   })
 })

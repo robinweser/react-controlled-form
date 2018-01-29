@@ -9,7 +9,7 @@ export default function initForm(
     ...state,
     [formId]: {
       data: initialFields,
-      state: initialState
-    }
+      state: initialState,
+    },
   }
 }

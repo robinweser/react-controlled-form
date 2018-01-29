@@ -11,8 +11,8 @@ export default function updateField(
       ...state[formId],
       state: {
         ...state[formId].state,
-        ...newState
-      }
-    }
+        ...newState,
+      },
+    },
   }
 }

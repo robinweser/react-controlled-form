@@ -12,8 +12,8 @@ export default function initField(
       value = '',
       isEnabled = true,
       isRequired = false,
-      isValid = true
-    }
+      isValid = true,
+    },
   }: Action
 ): Object {
   return {
@@ -28,11 +28,11 @@ export default function initField(
             isEnabled,
             isRequired,
             isTouched: false,
-            isValid
+            isValid,
           },
           state[formId].data[fieldId] || {}
-        )
-      }
-    }
+        ),
+      },
+    },
   }
 }

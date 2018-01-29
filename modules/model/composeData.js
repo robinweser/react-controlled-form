@@ -1,10 +1,9 @@
 /* @flow */
-import objectReduce from './objectReduce'
-import cloneObject from './cloneObject'
+import objectReduce from 'fast-loops/lib/objectReduce'
 
 import type Field from '../../types/Field'
 
-export default function composeFieldData(
+export default function composeData(
   previousData: Field,
   newData: Field
 ): Field {
@@ -19,6 +18,8 @@ export default function composeFieldData(
     },
     // we clone the previous data to ensure
     // immutable data structures for Redux
-    cloneObject(previousData)
+    {
+      ...previousData,
+    }
   )
 }

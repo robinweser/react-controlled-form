@@ -5,8 +5,11 @@
 ### 2.0
 
 #### 2.0.0
-This new major release adds new Component APIs leveraging the render-props pattern.<br>
-Check the documentation for more information.
+This new major release adds new component APIs leveraging the render-props pattern.<br>
+The `<Form>` implementation also changed into a render-props API while all the HoCs are still present, but deprecated.
+
+The [Migration Guide](Migration.md) will help updating breaking changes.
+Check the documentation for overall API changes and further information.
 
 ## 1.0
 

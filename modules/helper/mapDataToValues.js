@@ -1,5 +1,5 @@
 /* @flow */
-import objectReduce from '../utils/objectReduce'
+import objectReduce from 'fast-loops/lib/objectReduce'
 
 import type { Field } from '../../types/Field'
 

@@ -1,6 +1,7 @@
 import Data from './components/Data'
 import Field from './components/Field'
 import Form from './components/Form'
+import Submit from './components/Submit'
 import Reset from './components/Reset'
 import State from './components/State'
 import Update from './components/Update'
@@ -21,6 +22,7 @@ export {
   Data,
   Field,
   Form,
+  Submit,
   Reset,
   State,
   Update,

@@ -1,7 +1,7 @@
 /* @flow */
 import type { Action } from '../../../types/Action'
 
-import composeFieldData from '../../utils/composeFieldData'
+import composeData from '../composeData'
 
 export default function initField(
   state: Object,
@@ -22,7 +22,7 @@ export default function initField(
       ...state[formId],
       data: {
         ...state[formId].data,
-        [fieldId]: composeFieldData(
+        [fieldId]: composeData(
           {
             value,
             isEnabled,

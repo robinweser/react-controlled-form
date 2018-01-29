@@ -32,6 +32,7 @@
     "controlled-form"
   ],
   "dependencies": {
+    "fast-loops": "^1.0.0",
     "prop-types": "^15.5.10",
     "recompose": "^0.23.5",
     "redux-actions": "^2.0.3"

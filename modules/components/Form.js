@@ -1,19 +1,17 @@
 /* @flow */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { shallowEqual } from 'recompose'
 
-import objectReduce from '../utils/objectReduce'
-import {
-  initForm as initFormAction,
-  updateField as updateFieldAction,
-  updateState as updateStateAction,
-} from '../model/actions'
+import objectReduce from 'fast-loops/lib/objectReduce'
+
+import { mapStateToProps, mapDispatchToProps } from '../mapping/form'
 
 import type { Field } from '../../types/Field'
 
 type FormProps = {
+  render: Function,
   formId: string,
   initialFields?: Object,
   initialState?: Object,
@@ -129,45 +127,25 @@ class Form extends Component {
     const {
       formId,
       validate,
-      onSubmit,
       onChange,
       data,
       state,
-      initialFields,
-      initialState,
-      initForm,
       updateField,
       updateState,
-      ...otherProps
+      render,
     } = this.props
 
-    return <form {...otherProps} onSubmit={this.onSubmit} />
+    return render({
+      onSubmit: this.onSubmit,
+      updateField,
+      updateState,
+      formId,
+      validate,
+      onChange,
+      data,
+      state,
+    })
   }
 }
-
-const mapStateToProps = ({ form }: Object, { formId }: Object) => ({
-  data: form[formId] && form[formId].data,
-  state: form[formId] && form[formId].state,
-})
-
-const mapDispatchToProps = (dispatch: Function, { formId }: Object) => ({
-  initForm: (initialFields: Object, initialState: Object) =>
-    dispatch(initFormAction({ formId, initialFields, initialState })),
-  updateField: (fieldId: string, fieldData: Field) =>
-    dispatch(
-      updateFieldAction({
-        formId,
-        fieldId,
-        ...fieldData,
-      })
-    ),
-  updateState: (newState: Object) =>
-    dispatch(
-      updateStateAction({
-        formId,
-        newState,
-      })
-    ),
-})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

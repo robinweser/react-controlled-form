@@ -17,10 +17,11 @@ Every field is linked to some data in our Redux store, which always has the foll
 ```
 The properties should be self-describing and are everything you need to know in order to create any possible form field.
 
-
-Check out the [`asField` API Reference](../api/asField.md) for further information on each property's type.
+Check out the [Field API Reference](../api/core/Field.md) for further information on each property's type.
 
 #### Related
 * [Updating Fields](../guides/UpdatingFields.md)
-* [Form Validation - Per-Field Validation](../guides/FormValidation#per-field-validation.md)
-* [API Reference - `asField`](../api/asField.md)
+* [Form Validation: Per-Field Validation](../guides/FormValidation#per-field-validation.md)
+* [API Reference: Field](../api/core/Field.md)
+* [API Reference: Update](../api/core/Update.md)
+* [API Reference: Data](../api/core/Data.md)

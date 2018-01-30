@@ -1,16 +1,25 @@
 # API Reference
 
-### Core
+### Components
 
-* [`<Form>`](api/Form.md)
-* [`asField(component, [defaultField])`](api/asField.md)
-* [`asUpdate(component)`](api/asUpdate.md)
-* [`asSubmit(component)`](api/asSubmit.md)
-* [`asReset(component)`](api/asReset.md)
-* [`withData([mapDataToProps])`](api/withData.md)
-* [`withState([mapStateToProps])`](api/withState.md)
+* [Form](api/Form.md)
+* [Field](api/Field.md)
+* [Update](api/Update.md)
+* [Submit](api/Submit.md)
+* [Reset](api/Reset.md)
+* [Data](api/Data.md)
+* [State](api/State.md)
+
+### HoCs (deprecated)
+
+* [asField](api/asField.md)
+* [asUpdate](api/asUpdate.md)
+* [asSubmit](api/asSubmit.md)
+* [asReset](api/asReset.md)
+* [withData](api/withData.md)
+* [withState](api/withState.md)
 
 ### Utilities
 
-* [`mapDataToValues(data)`](api/utils/mapDataToValues.md)
-* [`validateWithRequired(value, isRequired)`](api/utils/validateWithRequired.md)
+* [mapDataToValues](api/utils/mapDataToValues.md)
+* [validateWithRequired](api/utils/validateWithRequired.md)

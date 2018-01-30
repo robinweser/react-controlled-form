@@ -9,31 +9,27 @@ import { mapStateToProps, mapDispatchToProps } from '../mapping/field'
 import type { Field as FieldType } from '../../types/Field'
 
 type FieldProps = {
+  // public API
+  fieldId: string,
+  initialData: FieldType,
+  render: Function,
+
+  // passed via Redux / context
   formId: string,
   data: FieldType,
   state: Object,
   initField: Function,
   updateField: Function,
   updateState: Function,
-  defaultField: Function | FieldType,
   isFormValid: boolean,
-  render: Function,
-  fieldId: string,
 }
 
 class Field extends Component {
-  static defaultProps = {
-    defaultField: {},
-  }
-
   constructor(props, context) {
     super(props, context)
 
-    if (typeof props.defaultField === 'function') {
-      props.initField(props.defaultField(props))
-    } else {
-      props.initField(props.defaultField)
-    }
+    const initialField = props.initialData || {}
+    props.initField(initialField)
   }
 
   props: FieldProps

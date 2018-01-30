@@ -3,15 +3,10 @@ import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
 
-const defaultMapper = data => ({ data })
+import { mapStateToProps } from '../mapping/data'
 
-const mapStateToProps = (
-  { form }: Object,
-  { mapDataToProps = defaultMapper, ...ownProps }: Object
-) => mapDataToProps(form[ownProps.formId].data, ownProps)
-
-function Data({ formId, isFormValid, render, ...otherProps }) {
-  return render({ formId, isFormValid, ...otherProps })
+function Data({ formId, isFormValid, data, render }) {
+  return render({ formId, isFormValid, data })
 }
 
 export default compose(

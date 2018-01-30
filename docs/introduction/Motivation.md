@@ -8,4 +8,4 @@ You might have already spot the issue. Trying to satisfy everyone is simply impo
 
 **Instead of shipping predefined components with lots of built-in features, we instead give you the right abstractions to create your very own forms.**
 
-The only built-in React component is the wrapping `<form>` element itself. Apart from that, we give provide useful functional HOCs ([Higher-Order Components](Higher order components)) which help you to create all your form components right away.
+The only built-in React component is the wrapping `<form>` element itself. Apart from that, we provide useful functional HOCs ([Higher-Order Components](Higher order components)) which help you to create all your form components right away.

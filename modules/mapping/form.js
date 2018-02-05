@@ -6,7 +6,7 @@ import {
 
 import type { Field } from '../../types/Field'
 
-export function mapStateToProp({ form }: Object, { formId }: Object) {
+export function mapStateToProps({ form }: Object, { formId }: Object) {
   return {
     data: form[formId] && form[formId].data,
     state: form[formId] && form[formId].state,

@@ -12,9 +12,5 @@ function isFalsyValue(value: any) {
 }
 
 export default function validateWithRequired(value: any, isRequired: boolean) {
-  if (isRequired) {
-    return !isFalsyValue(value)
-  }
-
-  return true
+  return isRequired ? !isFalsyValue(value) : true
 }

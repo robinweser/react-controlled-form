@@ -15,10 +15,8 @@ type FormProps = {
   formId: string,
   initialFields?: Object,
   initialState?: Object,
-  enableDefault?: boolean,
   validate?: Function,
   onChange?: Function,
-  onSubmit?: Function,
 
   data: Object,
   state: Object,
@@ -30,9 +28,6 @@ type FormProps = {
 class Form extends Component {
   static childContextTypes = {
     formId: PropTypes.string.isRequired,
-    isFormValid: PropTypes.bool.isRequired,
-    submitForm: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
@@ -44,9 +39,6 @@ class Form extends Component {
   getChildContext() {
     return {
       formId: this.props.formId,
-      submitForm: this.onSubmit,
-      resetForm: this.onReset,
-      isFormValid: this.validate(),
     }
   }
 
@@ -79,32 +71,7 @@ class Form extends Component {
     }
   }
 
-  onSubmit = event => {
-    const {
-      data,
-      state,
-      updateField,
-      updateState,
-      enableDefault,
-      onSubmit,
-    } = this.props
-
-    if (onSubmit) {
-      onSubmit({
-        data,
-        state,
-        updateField,
-        updateState,
-        resetForm: this.onReset,
-      })
-    }
-
-    if (event && event.preventDefault && !enableDefault) {
-      event.preventDefault()
-    }
-  }
-
-  onReset = () => {
+  reset = () => {
     this.props.initForm(this.initialFields, this.initialState)
   }
 
@@ -124,24 +91,14 @@ class Form extends Component {
   initialized: boolean
 
   render() {
-    const {
-      formId,
-      validate,
-      onChange,
-      data,
-      state,
-      updateField,
-      updateState,
-      render,
-    } = this.props
+    const { formId, data, state, updateField, updateState, render } = this.props
 
     return render({
-      onSubmit: this.onSubmit,
+      reset: this.reset,
+      validate: this.validate,
       updateField,
       updateState,
       formId,
-      validate,
-      onChange,
       data,
       state,
     })

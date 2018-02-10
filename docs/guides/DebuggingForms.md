@@ -8,18 +8,22 @@ Another helpful pattern is to add the Redux store to the global window namespace
 
 ## Displaying formatted JSON
 
-If you've already checked one of the [examples](../introduction/Examples.md), you may have seen the simple yet helpful JSON representation of the form data. It shows the whole form data at any point of time and updates automatically as properties change. It is rendered using a combination of the [Data](../api/core/Data.md)-HOC and `JSON.stringify` with its third parameter.
-
+If you've already checked one of the [examples](../introduction/Examples.md), you may have seen the simple yet helpful JSON representation of the form data. It shows the whole form data at any point of time and updates automatically as properties change.
 #### Example
-> It must be rendered inside the `<Form>`-component to show any effect.
+> It must be rendered inside the Form-component to show any effect.
 
 ```javascript
-import React from 'react'
-import { withData } from 'react-controlled-form'
+import { Form } from 'react-controlled-form'
 
 const DataDisplay = ({ data }) => (
   <pre>{JSON.stringify(data, null, 2)}</pre>
 )
 
-export default withData()(DataDisplay)
+// Usage
+<Form render={({ data }) => (
+  <form>
+    ...
+    <DataDisplay data={data}>
+  </form>
+)} />
 ```

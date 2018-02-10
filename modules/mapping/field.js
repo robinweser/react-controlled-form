@@ -5,12 +5,14 @@ import {
   updateState as updateStateAction,
 } from '../model/actions'
 
+import { REDUCER_NAMESPACE } from '../model/reducers/_namespace'
+
 import type { Field } from '../../types/Field'
 
-export function mapStateToProps({ form }: Object, { fieldId, formId }: Object) {
+export function mapStateToProps(store: Object, { fieldId, formId }: Object) {
   return {
-    data: form[formId].data[fieldId] || {},
-    state: form[formId].state,
+    data: store[REDUCER_NAMESPACE][formId].data[fieldId] || {},
+    state: store[REDUCER_NAMESPACE][formId].state,
   }
 }
 

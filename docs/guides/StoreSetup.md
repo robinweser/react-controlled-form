@@ -1,10 +1,9 @@
 ## Store Setup
 
 The API is build on Redux and therefore it is required to use Redux with React.<br>
-You have to ensure that the Redux store is provided using the `<Provider>` component from react-redux.
+You have to ensure that the Redux store is provided using the [Provider](https://github.com/reactjs/react-redux/blob/master/docs/api.md#provider-store) component from [react-redux](https://github.com/reactjs/react-redux).
 
-Despite using Redux, we need to include a special form reducer with the `form` key.<br>
-This is important, as the API requires that `state.form` is used.
+Despite using Redux, we need to include a special form reducer object.<br>
 
 ```javascript
 import React from 'react'
@@ -16,8 +15,7 @@ import { formReducer } from 'react-controlled-form'
 import App from './path-to-your-root'
 
 const store = createStore(combineReducers({
-  form: formReducer,
-  /* any other custom reducers */
+  ...formReducer
 }))
 
 render((

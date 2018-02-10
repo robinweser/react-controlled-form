@@ -57,9 +57,6 @@ function onChange({ updateField, data }) {
   }
 }
 
-export default () => (
-  <Form formId="contact" initialFields={initialFields} render={() => (
-    <form></form>
-  )} />
-)
+// Usage
+<Form formId="contact" initialFields={initialFields} render={...} />
 ```

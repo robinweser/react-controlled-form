@@ -21,15 +21,13 @@ The most common use case is to update the field value on user input. Thanks to R
 
 #### Example
 ```javascript
-const Input = ({ updateField, value }) => {
-  function onInput(e) {
-    updateField({ value: e.target.value })
-  }
+import { Field } from 'react-controlled-form'
 
-  return (
-    <input value={value} onInput={onInput} />
-  )
-}
+const Input = ({ fieldId }) => (
+  <Field fieldId={fieldId} render={({ value, updateField }) => (
+    <input value={value} onChange={e => updateField({ value: e.target.value })} />
+  )} />
+)
 ```
 
 ## Update on Form Change
@@ -39,7 +37,7 @@ Despite updating values on user input, we trigger do some advanced updates on gl
 ```javascript
 import { Form } from 'react-controlled-form'
 
-const initialFields = {
+const intialFields = {
   a: { value: false },
   b: { isEnabled: false }
 }
@@ -52,12 +50,10 @@ function onChange({ data, updateField }) {
   }
 }
 
-const UserForm = (
-  <Form
-    formId="user"
-    initialFields={initialFields}
-    onChange={onChange}>
-    /* form fields */
-  </Form>
-)
+// Usage
+<Form
+  formId="user"
+  initialFields={initialFields}
+  onChange={onChange}
+  render={...} />
 ```

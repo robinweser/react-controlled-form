@@ -8,9 +8,10 @@ The simple example just covers the very basics including input fields, updating 
 
 ```sh
 git clone https://github.com/rofrischmann/react-controlled-form.git
+yarn setup 
 
 cd react-controlled-form/examples/simple
-yarn && yarn start
+yarn start
 ```
 
 ## Validation
@@ -21,9 +22,10 @@ The validation example covers simple field validation including visual validatio
 
 ```sh
 git clone https://github.com/rofrischmann/react-controlled-form.git
+yarn setup 
 
 cd react-controlled-form/examples/validation
-yarn && yarn start
+yarn start
 ```
 
 ## Third-Party Component
@@ -34,7 +36,8 @@ Shows how to integrate basically any third-party component ([react-select](https
 
 ```sh
 git clone https://github.com/rofrischmann/react-controlled-form.git
+yarn setup 
 
 cd react-controlled-form/examples/third-party-component
-yarn && yarn start
+yarn start
 ```

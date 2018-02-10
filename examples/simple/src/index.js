@@ -5,29 +5,31 @@ import { Form, Field, mapDataToValues } from 'react-controlled-form'
 
 import store from './store'
 
-const Input = ({ fieldId }) =>
+const Input = ({ fieldId }) => (
   <Field
     fieldId={fieldId}
-    render={({ value, updateField }) =>
+    render={({ value, updateField }) => (
       <input
         onChange={e => updateField({ value: e.target.value })}
         placeholder={fieldId}
         value={value}
-      />}
+      />
+    )}
   />
+)
 
-const DataDisplay = ({ data }) =>
+const DataDisplay = ({ data }) => (
   <div>
     <h3>Form Data</h3>
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </div>
+)
 
 ReactDOM.render(
   <Provider store={store}>
     <Form
       formId="simple"
-      onChange={console.log}
-      render={({ reset, data }) =>
+      render={({ reset, data }) => (
         <form
           onSubmit={() => {
             alert(JSON.stringify(mapDataToValues(data), null, 2))
@@ -42,7 +44,8 @@ ReactDOM.render(
             <br />
             <DataDisplay data={data} />
           </div>
-        </form>}
+        </form>
+      )}
     />
   </Provider>,
   document.getElementById('root')

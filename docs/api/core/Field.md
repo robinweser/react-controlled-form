@@ -39,10 +39,6 @@ function Input({ fieldId }) {
     <Field 
       fieldId={fieldId} 
       render={renderInput} 
-      initialData={{
-        isRequired: true,
-        isValid: false
-      }}
     />
   )
 }
@@ -56,4 +52,4 @@ function Input({ fieldId }) {
 
 * To provide maximum accessibility, it is recommended to utilize the default DOM attributes such as `disabled` and `required`. We may use ` isEnabled` and `isRequired` to set those attributes respectively.
 * Using `onInput` instead of `onChange`, `onKeyPress` or `onKeyDown` ensures that the event has the most recent value.
-* Field validation can easily be done within `onInput`. We can then set `isValid` within `updateField` to update the state. Altering the visual appearance depending on `isValid` helps to tell the user if the field is actually valid or not. Additional, we could show an error message if it's invalid.
+* Field validation can easily be done within `onChange`. We can then set `isValid` within `updateField` to update the state. Altering the visual appearance depending on `isValid` helps to tell the user if the field is actually valid or not. Additional, we could show an error message if it's invalid.

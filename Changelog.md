@@ -1,15 +1,20 @@
 # Changelog
 
+## 3.0
+
+### 3.0
+
+#### 3.0.0
+This major release removes all old APIs (including HoCs) and reduces the whole API to just two simple components Field and Form.
+
+Check the [Migration Guide](docs/introduction/Migration.md) for more information on how to migrate older versions.
+
 ## 2.0
 
 ### 2.0
 
 #### 2.0.0
-This new major release adds new component APIs leveraging the render-props pattern.<br>
-The `<Form>` implementation also changed into a render-props API while all the HoCs are still present, but deprecated.
-
-The [Migration Guide](Migration.md) will help updating breaking changes.
-Check the documentation for overall API changes and further information.
+This new major release was an accidently released major version introducing the new render-props APIs. It did modify the existing Form component a bit, but was still backwards-compatible.<br>
 
 ## 1.0
 

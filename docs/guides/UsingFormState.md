@@ -23,18 +23,13 @@ function onChange({ updateState, state, data }) {
   }
 }
 
-export default () => (
-  <Form formId="complex" onChange={onChange}>
-    /* form fields */
-  </Form>
-)
+// Usage
+<Form formId="complex" onChange={onChange} render={...} />
 ```
 
 We can then use this information e.g. to display customized and dynamic warning messages.
 
 ```javascript
-import { withState } from 'react-controlled-form'
-
 function Warning({ invalidPhoneCountryCombination }) {
   if (!invalidPhoneCountryCombination) {
     return null
@@ -45,7 +40,11 @@ function Warning({ invalidPhoneCountryCombination }) {
   )
 }
 
-export default withState(({ invalidPhoneCountryCombination }) => ({
-  invalidPhoneCountryCombination
-}))(Warning)
+// Usage
+<Form formId="complex" onChange={onChange} render={({ state }) => {
+  <form>
+    ...
+    <Warning state={state} />
+  </form>
+}} />
 ```

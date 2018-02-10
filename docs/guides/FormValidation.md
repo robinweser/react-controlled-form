@@ -1,6 +1,7 @@
 # Form Validation
 
-Validation is an important part for most forms. There are two ways to perform validation.
+Validation is an important part for most forms.<br>
+There are two ways to perform validation.
 
 * [Global Validation](#global-validation)
 * [Per-Field Validation](#per-field-validation)
@@ -9,7 +10,7 @@ Validation is an important part for most forms. There are two ways to perform va
   * [On Submit](#on-submit)
 
 ## Global Validation
-We are able to validate the whole form by passing a [`validate`](../api/Form.md#props) function to our wrapping [`<Form>`](../api/Form.md) component.<br>
+We are able to validate the whole form by passing a [`validate`](../api/Form.md#props) function to our wrapping [Form](../api/Form.md) component.<br>
 This is primarily useful for special cross-validation cases where multiple field values are validated together.
 
 
@@ -23,11 +24,8 @@ function validate({ data }) {
     data.city.value !== 'Berlin'
 }
 
-export default () => (
-  <Form formId="address" validate={validate}>
-    /* form fields */
-  </Form>
-)
+// Usage
+<Form formId="address" validate={validate} render={...} />
 ```
 
 ## Per-Field Validation
@@ -38,36 +36,30 @@ The most common way is to validate on user input.
 
 #### Example
 ```javascript
-import { asField } from 'react-controlled-form'
+import { Field } from 'react-controlled-form'
 
 // only allow real positive numbers
 function validate(value) {
   return value.match(/^\d+$/) !== null && parseInt(value) > 0
 }
 
-const Age = ({ updateField, value, isValid }) => {
-  function onInput(e) {
+// Usage
+<Field fieldId='age' render={({ value, isValid, updateField }) => (
+  <input
+    value={value}
+    onChange={e => {
     const nextValue = e.target.value
 
     updateField({
       isValid: validate(nextValue),
       nextValue
-    })
-  }
-
-  return (
-    <input
-      value={value}
-      onInput={onInput}
-      style={{
-        // simple way to indicate field validation
-        color: isValid ? 'green' : 'red'
-      }}
-    />
-  )
-}
-
-export default asField(Age)
+    })}
+    style={{
+      // simple way to indicate field validation
+      color: isValid ? 'green' : 'red'
+    }}
+  /> 
+)}>
 ```
 
 ---
@@ -80,45 +72,33 @@ We will utilize the `isTouched` indicator to only show visible validation on blu
 
 #### Example
 ```javascript
-import { asField } from 'react-controlled-form'
+import { Field } from 'react-controlled-form'
 
 function validate(value) {
   return value.match(/^\d+$/) !== null && parseInt(value) > 0
 }
 
-const Age = ({ updateField, value, isValid, isTouched }) => {
-  function onInput(e) {
+// Usage
+<Field fieldId='age' render={({ value, isValid, updateField }) => (
+  <input
+    value={value}
+    onChange={e => {
     const nextValue = e.target.value
 
     updateField({
       isValid: validate(nextValue),
       // forcing isTouched: false
       isTouched: false,
-      value: nextValue
-    })
-  }
-
-  function onBlur() {
-    updateField({
-      isTouched: true
-    })
-  }
-
-  return (
-    <input
-      value={value}
-      onBlur={onBlur}
-      onInput={onInput}
-      style={{
-        // if its touched show the validation color
-        // if not just remain black
-        color: isTouched ? (isValid ? 'green' : 'red') : 'black'
-      }}
-    />
-  )
-}
-
-export default asField(Age)
+      nextValue
+    })}
+    onBlur={() => updateField({ isTouched: true })}
+    style={{
+      // if its touched show the validation color
+      // if not just remain black
+      color: isTouched ? (isValid ? 'green' : 'red') : 'black'
+    }}
+  /> 
+)}>
 ```
 
 ---

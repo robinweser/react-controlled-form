@@ -30,7 +30,7 @@ yarn start
 
 ## Third-Party Component
 
-> [Live Demo](https://third-party-component-wrnwzikaxz.now.sh/?)
+> [Live Demo](https://third-party-component-wrnwzikaxz.now.sh)
 
 Shows how to integrate basically any third-party component ([react-select](https://github.com/JedWatson/react-select) for this example).
 

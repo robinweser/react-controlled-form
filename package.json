@@ -1,16 +1,18 @@
 {
   "name": "react-controlled-form",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "files": [
     "LICENSE",
     "README.md",
-    "Changelog.md",
-    "lib/"
+    "lib/**",
+    "es/**"
   ],
   "scripts": {
-    "babel": "babel -d lib modules",
+    "babel": "BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
     "bootstrap": "lerna bootstrap",
     "clean": "learn clean --yes",
     "clear": "rimraf coverage _book lib es",
@@ -18,7 +20,7 @@
     "format": "prettier --write \"examples/*/src/**/*.js\" && prettier --write \"modules/**/*.js\"",
     "flow": "flow",
     "lint": "eslint modules",
-    "release": "npm run check && npm run babel && npm publish",
+    "release": "npm run check && npm run babel && lerna publish",
     "test": "cross-env BABEL_ENV=commonjs jest",
     "coverage": "yarn test -- --coverage",
     "watch": "yarn test -- --watch",

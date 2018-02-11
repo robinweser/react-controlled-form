@@ -30,22 +30,17 @@ Field is the most common component. <br>It is used to render fully integrated fo
 ```javascript
 import { Field } from 'react-controlled-form'
 
-function Input({ fieldId }) {
-  const renderInput = ({ value, updateField }) => (
-    <input value={value} onChange={e => updateField({ value: e.target.value })} />
-  )
+function Input({ value, updateField }) {
+  const onChange = e => updateField({ value: e.target.value })
 
   return (
-    <Field 
-      fieldId={fieldId} 
-      render={renderInput} 
-    />
+    <input value={value} onChange={onChange} />
   )
 }
 
 // Usage
-<Input fieldId="firstname" />
-<Input fieldId="lastname" />
+<Field fieldId="firstname" render={Input} />
+<Field fieldId="lastname" render={Input} />
 ```
 
 ## Tips & Tricks

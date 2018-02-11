@@ -19,7 +19,7 @@ There are two different ways to initialize the form.
 
 ## Per-Field Initialization
 Per-Field Initialization is a form-based way to initialize special field instances and is only active for that single field instance.
-To achieve that, we can pass an [`initialFields`](../api/Form.md#props) object to our wrapping [Form](../api/Form.md) component.<br><br>
+To achieve that, we can pass an [`initialFields`](../api/core/Form.md#props) object to our wrapping [Form](../api/core/Form.md) component.<br><br>
 The keys should match the `fieldId`s we pass to the field components inside the form while the value **must** be an object with field data values. We only have to provide the data we actually want to set initially, thus every data value is optional.
 
 #### Example
@@ -42,7 +42,7 @@ const initialFields = {
 ```
 
 ## Per-Component Initialization
-Instead of initializing each field instance separately, we can also add some default field data to the [Field](../api/Field.md) component. It will be used to initialize every field instance of that component.<br>
+Instead of initializing each field instance separately, we can also add some default field data to the [Field](../api/core/Field.md) component. It will be used to initialize every field instance of that component.<br>
 
 #### Example
 ```javascript

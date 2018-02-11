@@ -2,8 +2,8 @@
 
 ### Components
 
-* [Form](api/Form.md)
-* [Field](api/Field.md)
+* [Form](api/core/Form.md)
+* [Field](api/core/Field.md)
 
 ### Utilities
 

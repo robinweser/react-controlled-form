@@ -11,5 +11,3 @@ Everything else should be done within the fields directly.
 * [Handling Submit](../guides/HandlingSubmit.md)
 * [Form Validation: Global Validation](../guides/FormValidation#global-validation.md)
 * [API Reference: Form](../api/core/Form.md)
-* [API Reference: Submit](../api/core/Submit.md)
-* [API Reference: Reset](../api/core/Reset.md)

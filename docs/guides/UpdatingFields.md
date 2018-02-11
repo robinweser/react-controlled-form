@@ -23,11 +23,16 @@ The most common use case is to update the field value on user input. Thanks to R
 ```javascript
 import { Field } from 'react-controlled-form'
 
-const Input = ({ fieldId }) => (
-  <Field fieldId={fieldId} render={({ value, updateField }) => (
-    <input value={value} onChange={e => updateField({ value: e.target.value })} />
-  )} />
-)
+function Input({ value, updateField }) {
+  const onChange = e => updateField({ value: e.target.value })
+
+  return (
+    <input value={value} onChange={onChange} />
+  )
+}
+
+// Usage
+<Field fieldId='name' render={Input} />
 ```
 
 ## Update on Form Change

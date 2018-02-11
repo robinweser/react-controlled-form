@@ -14,28 +14,37 @@ function validate(value) {
   return value.match(/^\d+$/) !== null && parseInt(value) > 0
 }
 
-// Usage
-<Field fieldId='age' render={({ value, isValid, updateField }) => (
-  <div>
-    <input
-      value={value}
-      onChange={e => {
-      const nextValue = e.target.value
+function InputWithValidation({ value, isValid, updateField }) {
+  function onChange(e) {
+    const nextValue = e.target.value
 
-      updateField({
-        isValid: validate(nextValue),
-        nextValue
-      })}
-      style={{
-        // simple way to indicate field validation
-        color: isValid ? 'green' : 'red'
-      }}
-    />
-    {isValid ? null : (
-      <span style={{ color: 'red' }}>Only real positive numbers are allowed.</span>
-    )}
-  </div>
-)}>
+    updateField({
+      isValid: validate(nextValue),
+      nextValue
+    })
+  }
+
+  const warning = isValid ? null : (
+    <span style={{ color: 'red' }}>Only real positive numbers are allowed.</span>
+  )
+
+  return (
+    <div>
+      <input 
+        value={value} 
+        onChange={onChange}
+        style={{
+          // simple way to indicate field validation
+          color: isValid ? 'green' : 'red'
+        }}
+      />
+      {warning}
+    </div>
+  )
+}
+
+// Usage
+<Field fieldId='age' render={InputWithValidation} />
 ```
 
 ## Flexible Error Messages
@@ -45,20 +54,15 @@ For many use cases, the primitive implementation is just fine. Yet, sometimes we
 ```javascript
 import { Form } from 'react-controlled-form'
 
-const Message = ({ isValid, country }) => (
-  if (isValid) {
+function Message ({ age, country }) {
+  if (age.isValid) {
     return null
   }
 
   return (
-    <span>You are not allowed to smoke under the age of 18 in {country}!</span>
+    <span>You are not allowed to smoke under the age of 18 in {country.value}!</span>
   )
-)
-
-const mapDataToProps = ({ age, country }) => ({
-  isValid: age.value >= 18,
-  country: country.value
-})
+}
 
 // Usage
 <Form formId="age" render={({ data }) => {

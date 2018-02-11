@@ -10,7 +10,7 @@ There are two ways to perform validation.
   * [On Submit](#on-submit)
 
 ## Global Validation
-We are able to validate the whole form by passing a [`validate`](../api/Form.md#props) function to our wrapping [Form](../api/Form.md) component.<br>
+We are able to validate the whole form by passing a [`validate`](../api/core/Form.md#props) function to our wrapping [Form](../api/core/Form.md) component.<br>
 This is primarily useful for special cross-validation cases where multiple field values are validated together.
 
 
@@ -43,23 +43,30 @@ function validate(value) {
   return value.match(/^\d+$/) !== null && parseInt(value) > 0
 }
 
-// Usage
-<Field fieldId='age' render={({ value, isValid, updateField }) => (
-  <input
-    value={value}
-    onChange={e => {
+function Input({ value, isValid, updateField }) {
+  function onChange(e) {
     const nextValue = e.target.value
 
     updateField({
       isValid: validate(nextValue),
       nextValue
-    })}
-    style={{
-      // simple way to indicate field validation
-      color: isValid ? 'green' : 'red'
-    }}
-  /> 
-)}>
+    }) 
+  }
+
+  return (
+    <input 
+      value={value} 
+      onChange={onChange} 
+      style={{
+        // simple way to indicate field validation
+        color: isValid ? 'green' : 'red'
+      }} 
+    />
+  )
+}
+
+// Usage
+<Field fieldId='age' render={Input} />
 ```
 
 ---
@@ -74,15 +81,13 @@ We will utilize the `isTouched` indicator to only show visible validation on blu
 ```javascript
 import { Field } from 'react-controlled-form'
 
+// only allow real positive numbers
 function validate(value) {
   return value.match(/^\d+$/) !== null && parseInt(value) > 0
 }
 
-// Usage
-<Field fieldId='age' render={({ value, isValid, updateField }) => (
-  <input
-    value={value}
-    onChange={e => {
+function Input({ value, isValid, updateField }) {
+  function onChange(e) {
     const nextValue = e.target.value
 
     updateField({
@@ -90,15 +95,31 @@ function validate(value) {
       // forcing isTouched: false
       isTouched: false,
       nextValue
-    })}
-    onBlur={() => updateField({ isTouched: true })}
-    style={{
-      // if its touched show the validation color
-      // if not just remain black
-      color: isTouched ? (isValid ? 'green' : 'red') : 'black'
-    }}
-  /> 
-)}>
+    }) 
+  }
+
+  function onBlur(e) {
+    updateField({ 
+      isTouched: true 
+    })
+  }
+
+  return (
+    <input 
+      value={value} 
+      onChange={onChange}
+      onBlur={onBlur}
+      style={{
+        // if its touched show the validation color
+        // if not just remain black
+        color: isTouched ? (isValid ? 'green' : 'red') : 'black'
+      }} 
+    />
+  )
+}
+
+// Usage
+<Field fieldId='age' render={Input} />
 ```
 
 ---

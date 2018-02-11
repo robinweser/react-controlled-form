@@ -23,5 +23,3 @@ Check out the [Field API Reference](../api/core/Field.md) for further informatio
 * [Updating Fields](../guides/UpdatingFields.md)
 * [Form Validation: Per-Field Validation](../guides/FormValidation#per-field-validation.md)
 * [API Reference: Field](../api/core/Field.md)
-* [API Reference: Update](../api/core/Update.md)
-* [API Reference: Data](../api/core/Data.md)

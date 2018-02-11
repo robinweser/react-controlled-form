@@ -8,5 +8,3 @@ It can be especially useful when dealing with complex forms that have several di
 
 #### Related
 * [Using Form State](../guides/UsingFormState.md)
-* [API Reference: Update](../api/core/Update.md)
-* [API Reference: State](../api/core/State.md)

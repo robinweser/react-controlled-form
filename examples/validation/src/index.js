@@ -10,11 +10,11 @@ import {
 
 import store from './store'
 
-const Input = ({ fieldId, placeholder, required, validate = () => true }) =>
+const Input = ({ fieldId, placeholder, required, validate = () => true }) => (
   <Field
     fieldId={fieldId}
     initialData={{ isRequired: required }}
-    render={({ updateField, value, isRequired, isTouched, isValid }) =>
+    render={({ updateField, value, isRequired, isTouched, isValid }) => (
       <input
         value={value}
         name={fieldId}
@@ -34,8 +34,10 @@ const Input = ({ fieldId, placeholder, required, validate = () => true }) =>
           marginBottom: '1em',
           marginTop: '0.5em',
         }}
-      />}
+      />
+    )}
   />
+)
 
 const initialFields = {
   name: {
@@ -48,18 +50,19 @@ const initialFields = {
   },
 }
 
-const DataDisplay = ({ data }) =>
+const DataDisplay = ({ data }) => (
   <div>
     <h3>Form Data</h3>
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </div>
+)
 
 ReactDOM.render(
   <Provider store={store}>
     <Form
       initialFields={initialFields}
       formId="third-party"
-      render={({ reset, data, validate }) =>
+      render={({ reset, data, validate }) => (
         <form
           onSubmit={() => {
             alert(JSON.stringify(mapDataToValues(data), null, 2))
@@ -98,7 +101,8 @@ ReactDOM.render(
             <br />
             <DataDisplay data={data} />
           </div>
-        </form>}
+        </form>
+      )}
     />
   </Provider>,
   document.getElementById('root')

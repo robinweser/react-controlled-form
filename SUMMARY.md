@@ -3,7 +3,8 @@
 * [Read Me](README.md)
 * [1. Introduction](docs/Introduction.md)
   * [1.1. Motivation](docs/introduction/Motivation.md)
-  * [1.2. Examples](docs/introduction/Examples.md)
+  * [1.2. Migration](docs/introduction/Migration.md)
+  * [1.3. Examples](docs/introduction/Examples.md)
 * [2. Basics](docs/Basics.md)
   * [2.1. Forms](docs/basics/Forms.md)
   * [2.2. Fields](docs/basics/Fields.md)
@@ -17,7 +18,7 @@
   * [3.6. Handling Submit](docs/guides/HandlingSubmit.md)
   * [3.7. Using Form State](docs/guides/UsingFormState.md)
   * [3.8. Using Third-Party Components](docs/guides/ThirdPartyComponent.md)
-  * [4.0. Debugging Forms](docs/guides/DebuggingForms.md)
+  * [3.9. Debugging Forms](docs/guides/DebuggingForms.md)
 * [4. API Reference](docs/API.md)
   * 4.1. Core
     * [4.1.1. Form](docs/api/core/Form.md)

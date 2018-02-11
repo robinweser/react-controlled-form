@@ -22,4 +22,5 @@ Thumbs.db
 node_modules
 coverage
 lib
+es
 _book

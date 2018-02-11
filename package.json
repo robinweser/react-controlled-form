@@ -17,10 +17,11 @@
     "clean": "learn clean --yes",
     "clear": "rimraf coverage _book lib es",
     "check": "yarn format && yarn lint && yarn coverage && yarn flow",
+    "docs": "gitbook install && gitbook build && gh-pages -d _book",
     "format": "prettier --write \"examples/*/src/**/*.js\" && prettier --write \"modules/**/*.js\"",
     "flow": "flow",
     "lint": "eslint modules",
-    "release": "npm run check && npm run babel && lerna publish",
+    "release": "npm run check && npm run babel && lerna publish && yarn docs",
     "test": "cross-env BABEL_ENV=commonjs jest",
     "coverage": "yarn test -- --coverage",
     "watch": "yarn test -- --watch",
@@ -37,6 +38,12 @@
     "form-management",
     "controlled-form"
   ],
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/es/",
+      "/lib/"
+    ]
+  },
   "dependencies": {
     "fast-loops": "^1.0.0",
     "prop-types": "^15.5.10",

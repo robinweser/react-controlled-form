@@ -21,6 +21,7 @@
     "node_modules": true,
     "coverage": true,
     "lib": true,
+    "es": true,
     "_book": true
   },
   "files.exclude": {
@@ -45,6 +46,7 @@
     "node_modules": true,
     "coverage": true,
     "lib": true,
+    "es": true,
     "_book": true
   }
 }

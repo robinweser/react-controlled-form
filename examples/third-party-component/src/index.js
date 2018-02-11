@@ -68,17 +68,18 @@ const options = [
   { value: 'WY', label: 'Wyoming' },
 ]
 
-const DataDisplay = ({ data }) =>
+const DataDisplay = ({ data }) => (
   <div>
     <h3>Form Data</h3>
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </div>
+)
 
 ReactDOM.render(
   <Provider store={store}>
     <Form
       formId="third-party"
-      render={({ reset, data }) =>
+      render={({ reset, data }) => (
         <form
           onSubmit={() => {
             alert(JSON.stringify(mapDataToValues(data), null, 2))
@@ -90,21 +91,23 @@ ReactDOM.render(
             <div style={{ width: 300, paddingBottom: 10 }}>
               <Field
                 fieldId="state"
-                render={({ updateField, value }) =>
+                render={({ updateField, value }) => (
                   <Select
                     autofocus
                     options={options}
                     simpleValue
                     value={value}
                     onChange={newValue => updateField({ value: newValue })}
-                  />}
+                  />
+                )}
               />
             </div>
             <button>Submit</button>
             <br />
             <DataDisplay data={data} />
           </div>
-        </form>}
+        </form>
+      )}
     />
   </Provider>,
   document.getElementById('root')

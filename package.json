@@ -14,7 +14,7 @@
   "scripts": {
     "babel": "BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
     "bootstrap": "lerna bootstrap",
-    "clean": "learn clean --yes",
+    "clean": "lerna clean --yes",
     "clear": "rimraf coverage _book lib es",
     "check": "yarn format && yarn lint && yarn coverage && yarn flow",
     "docs": "gitbook install && gitbook build && gh-pages -d _book",

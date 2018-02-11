@@ -20,6 +20,7 @@ Thumbs.db
 *.vi
 
 node_modules
+**/build
 coverage
 lib
 es

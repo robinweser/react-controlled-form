@@ -24,9 +24,9 @@ yarn add react-controlled-form react react-redux redux
 
 ## The Gist
 ```javascript
-import { Form, asField, asSubmit } from 'react-controlled-form'
+import { Form, Field } from 'react-controlled-form'
 
-function InputField({
+function Input({
   value,
   updateField,
   isRequired,
@@ -34,7 +34,7 @@ function InputField({
 }) {
   // we could also do validation here and
   // update isValid in updateField respectively
-  function onInput(e) {
+  function onChange(e) {
     updateField({ value: e.target.value })
   }
 
@@ -43,32 +43,27 @@ function InputField({
       value={value}
       required={isRequired}
       disabled={!isEnabled}
-      onInput={onInput}
+      onChange={onChange}
     />
   )
 }
 
-function SubmitButton({ submitForm }) {
+function UserForm({
+  data
+}) {
+  const onSubmit = () => console.log("Submitted: ", data)
+
   return (
-    <button onClick={submitForm}>
-      Submit
-    </button>
+    <form onSubmit={onSubmit}>
+      <Field fieldId="firstname" render={Input} />
+      <Field fieldId="lastname" render={Input} />
+      <button type="submit">Submit</button>
+    </form>
   )
 }
 
-const Input = asField(InputField)
-const Submit = asSubmit(SubmitButton)
-
-function onSubmit({ data }) {
-  console.log("Submitted: ", data)
-}
-
 export default () => (
-  <Form formId="name" onSubmit={onSubmit}>
-    <Input fieldId="firstname" />
-    <Input fieldId="lastname" />
-    <Submit />
-  </Form>
+  <Form formId="user" render={UserForm} />
 )
 ```
 

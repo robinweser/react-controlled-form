@@ -61,6 +61,8 @@ class Form extends Component {
         !shallowEqual(state, newProps.state))
     ) {
       onChange({
+        reset: this.reset,
+        validate: this.validate,
         data: newProps.data,
         previousData: data,
         state: newProps.state,

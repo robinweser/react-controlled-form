@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -65,6 +65,8 @@
     "babel-preset-stage-0": "^6.22.0",
     "codeclimate-test-reporter": "^0.4.0",
     "cross-env": "^5.1.3",
+    "enzyme": "^2.8.2",
+    "enzyme-to-json": "^1.5.1",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-flowtype": "^2.30.0",
@@ -81,10 +83,14 @@
     "gitbook-plugin-prism": "^2.2.0",
     "jest": "20.0.4",
     "jest-cli": "^21.1.0",
+    "js-beautify": "^1.7.5",
     "lerna": "^2.8.0",
     "prettier": "^1.7.0",
     "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-test-renderer": "^15.5.4",
+    "redux": "^3.7.2",
     "rimraf": "^2.6.1"
   }
 }

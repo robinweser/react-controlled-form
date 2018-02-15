@@ -6,7 +6,7 @@ Field is the most common component. <br>It is used to render fully integrated fo
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | fieldId | (*string*) | | A (unique) identifier used to store the field data in our Redux store. |
-| initialData | (*Object?*) | | Default field data that is used to initialize the field. The data might be overwritten by `initialFields` set by the wrapping [`<Form>`](Form.md) component. | 
+| initialData | (*Object?*) | | Default field data that is used to initialize the field. The data might be overwritten by `initialFields` set by the wrapping [Form](Form.md) component. | 
 | render | (*Function*) | | A render function that renders the component shape. <br>It's first parameter is an object containing the following properties. |
 
 ### Render Properties

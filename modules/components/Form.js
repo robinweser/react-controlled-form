@@ -8,17 +8,17 @@ import objectReduce from 'fast-loops/lib/objectReduce'
 
 import { mapStateToProps, mapDispatchToProps } from '../mapping/form'
 
-import type { Field } from '../../types/Field'
+import type { Field, Data } from '../../types/Field'
 
 type FormProps = {
   render: Function,
   formId: string,
-  initialFields?: Object,
+  initialFields?: Data,
   initialState?: Object,
   validate?: Function,
   onChange?: Function,
 
-  data: Object,
+  data: Field,
   state: Object,
   initForm: Function,
   updateField: Function,
@@ -33,7 +33,8 @@ class Form extends Component {
   constructor(props, context) {
     super(props, context)
 
-    props.initForm(props.initialFields, props.initialState)
+    const { initForm, initialFields = {}, initialState = {} } = props
+    initForm(initialFields, initialState)
   }
 
   getChildContext() {
@@ -88,12 +89,18 @@ class Form extends Component {
   }
 
   props: FormProps
-  initialFields: { [fieldId: string]: Field }
+  initialFields: Data
   initialState: Object
   initialized: boolean
 
   render() {
     const { formId, data, state, updateField, updateState, render } = this.props
+
+    if (!data) {
+      // quick escape as the initial rerender will already be triggered
+      // TODO: it's pretty ugly to require a full rerender, maybe we can fix that
+      return null
+    }
 
     return render({
       reset: this.reset,

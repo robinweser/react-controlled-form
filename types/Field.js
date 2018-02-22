@@ -3,5 +3,9 @@ export type Field = {
   isRequired: boolean,
   isTouched: boolean,
   isValid: boolean,
-  value: any
+  value: any,
+}
+
+export type Data = {
+  [fieldId: string]: Field,
 }

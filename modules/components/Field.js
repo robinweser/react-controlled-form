@@ -28,8 +28,8 @@ class Field extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const initialField = props.initialData || {}
-    props.initField(initialField)
+    const { initField, initialData = {} } = props
+    initField(initialData)
   }
 
   props: FieldProps

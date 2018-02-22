@@ -4,6 +4,9 @@
 
 ### 3.0
 
+#### 3.0.1
+* Form's initial render is now skipped by default as it is not populated with data yet. It will automatically rerender once.
+
 #### 3.0.0
 This major release removes all old APIs (including HoCs) and reduces the whole API to just two simple components Field and Form.
 

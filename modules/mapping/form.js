@@ -1,5 +1,6 @@
 import {
   initForm as initFormAction,
+  resetForm as resetFormAction,
   updateField as updateFieldAction,
   updateState as updateStateAction,
 } from '../model/actions'
@@ -22,6 +23,7 @@ export function mapDispatchToProps(dispatch: Function, { formId }: Object) {
   return {
     initForm: (initialFields: Object, initialState: Object) =>
       dispatch(initFormAction({ formId, initialFields, initialState })),
+    resetForm: () => dispatch(resetFormAction({ formId })),
     updateField: (fieldId: string, fieldData: Field) =>
       dispatch(
         updateFieldAction({

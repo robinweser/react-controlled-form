@@ -3,28 +3,25 @@ import objectReduce from 'fast-loops/lib/objectReduce'
 
 import type { Action } from '../../../types/Action'
 
-export default function initForm(
+export default function resetForm(
   state: Object,
-  { payload: { formId, initialFields = {}, initialState = {} } }: Action
+  { payload: { formId } }: Action
 ): Object {
   return {
     ...state,
     [formId]: {
       data: objectReduce(
-        initialFields,
+        state[formId].data,
         (data, fieldData, fieldId) => {
           data[fieldId] = {
             ...fieldData,
-            _initial: fieldData,
+            ...fieldData._initial,
           }
           return data
         },
         {}
       ),
-      state: {
-        ...initialState,
-        _initial: initialState,
-      },
+      state: state[formId].state._initial,
     },
   }
 }

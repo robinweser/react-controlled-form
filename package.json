@@ -12,7 +12,7 @@
     "es/**"
   ],
   "scripts": {
-    "babel": "BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
+    "build": "BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "clear": "rimraf coverage _book lib es",

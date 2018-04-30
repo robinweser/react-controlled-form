@@ -21,15 +21,21 @@ type FieldProps = {
   initField: Function,
   updateField: Function,
   updateState: Function,
-  isFormValid: boolean,
+  subscribeToReinit: Function,
 }
 
 class Field extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const { initField, initialData = {} } = props
+    const { initField, initialData, subscribeToReinit } = props
+
+    this.unsubscribe = subscribeToReinit(() => initField(initialData))
     initField(initialData)
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   props: FieldProps
@@ -43,7 +49,6 @@ class Field extends Component {
       updateState,
       formId,
       fieldId,
-      isFormValid,
     } = this.props
 
     return render({
@@ -57,12 +62,11 @@ class Field extends Component {
       updateState,
       formId,
       fieldId,
-      isFormValid,
     })
   }
 }
 
 export default compose(
-  getContext({ formId: PropTypes.string, isFormValid: PropTypes.func }),
+  getContext({ formId: PropTypes.string, subscribeToReinit: PropTypes.func }),
   connect(mapStateToProps, mapDispatchToProps)
 )(Field)

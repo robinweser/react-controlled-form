@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { shallowEqual } from 'recompose'
 
 import objectReduce from 'fast-loops/lib/objectReduce'
+import arrayEach from 'fast-loops/lib/arrayEach'
 
 import { mapStateToProps, mapDispatchToProps } from '../mapping/form'
 
@@ -21,6 +22,7 @@ type FormProps = {
   data: Field,
   state: Object,
   initForm: Function,
+  resetForm: Function,
   updateField: Function,
   updateState: Function,
 }
@@ -28,31 +30,57 @@ type FormProps = {
 class Form extends Component {
   static childContextTypes = {
     formId: PropTypes.string.isRequired,
+    subscribeToReinit: PropTypes.func,
   }
 
   constructor(props, context) {
     super(props, context)
 
-    const { initForm, initialFields = {}, initialState = {} } = props
+    const { initForm, initialFields, initialState } = props
     initForm(initialFields, initialState)
+
+    this.reinitListeners = []
   }
 
   getChildContext() {
     return {
       formId: this.props.formId,
+      subscribeToReinit: this._subscribeToReinit,
     }
   }
 
   componentWillReceiveProps(newProps) {
-    const { data, state, updateField, updateState, onChange } = this.props
+    const {
+      data,
+      state,
+      initialFields = {},
+      initialState = {},
+      updateField,
+      updateState,
+      onChange,
+    } = this.props
 
-    // hook to save the initial data and state
-    // after all fields have been initialized
-    if (!this.initialized) {
-      this.initialFields = newProps.data
-      this.initialState = newProps.state
-      this.initialized = true
-      // we won't call onChange during initialization
+    const newInitialFields = newProps.initialFields || {}
+    const newInitialState = newProps.initialState || {}
+
+    // enabling re-initialisation
+    if (
+      !shallowEqual(initialFields, newInitialFields) ||
+      !shallowEqual(initialState, newInitialState)
+    ) {
+      this.props.initForm(
+        {
+          ...initialFields,
+          ...newInitialFields,
+        },
+        {
+          ...initialState,
+          ...newInitialState,
+        }
+      )
+
+      arrayEach(this.reinitListeners, callback => callback())
+
       return
     }
 
@@ -75,7 +103,7 @@ class Form extends Component {
   }
 
   reset = () => {
-    this.props.initForm(this.initialFields, this.initialState)
+    this.props.resetForm()
   }
 
   validate = () => {
@@ -88,10 +116,15 @@ class Form extends Component {
     )
   }
 
+  _subscribeToReinit = callback => {
+    this.reinitListeners.push(callback)
+
+    return () =>
+      this.reinitListeners.splice(this.reinitListeners.indexOf(callback), 1)
+  }
+
   props: FormProps
-  initialFields: Data
-  initialState: Object
-  initialized: boolean
+  reinitListeners: Array<Function>
 
   render() {
     const { formId, data, state, updateField, updateState, render } = this.props

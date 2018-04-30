@@ -16,22 +16,29 @@ export default function initField(
     },
   }: Action
 ): Object {
+  const { _initial, ...oldData } = state[formId].data[fieldId] || {}
+
+  const fieldData = composeData(
+    {
+      value,
+      isEnabled,
+      isRequired,
+      isTouched: false,
+      isValid,
+    },
+    oldData
+  )
+
   return {
     ...state,
     [formId]: {
       ...state[formId],
       data: {
         ...state[formId].data,
-        [fieldId]: composeData(
-          {
-            value,
-            isEnabled,
-            isRequired,
-            isTouched: false,
-            isValid,
-          },
-          state[formId].data[fieldId] || {}
-        ),
+        [fieldId]: {
+          ...fieldData,
+          _initial: fieldData,
+        },
       },
     },
   }

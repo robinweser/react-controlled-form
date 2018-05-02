@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -21,7 +21,7 @@
     "format": "prettier --write \"examples/*/src/**/*.js\" && prettier --write \"modules/**/*.js\"",
     "flow": "flow",
     "lint": "eslint modules",
-    "release": "npm run check && npm run babel && lerna publish && yarn docs",
+    "release": "npm run check && npm run build && lerna publish && yarn docs",
     "test": "cross-env BABEL_ENV=commonjs jest",
     "coverage": "yarn test -- --coverage",
     "watch": "yarn test -- --watch",

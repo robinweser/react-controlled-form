@@ -30,8 +30,9 @@ class Field extends Component {
 
     const { initField, initialData, subscribeToReinit } = props
 
-    this.unsubscribe = subscribeToReinit(() => initField(initialData))
-    initField(initialData)
+    const init = () => initField(initialData)
+    this.unsubscribe = subscribeToReinit(init)
+    init()
   }
 
   componentWillUnmount() {
@@ -39,6 +40,7 @@ class Field extends Component {
   }
 
   props: FieldProps
+  unsubscribe: Function
 
   render() {
     const {

@@ -21,19 +21,6 @@ describe('Updating form fields', () => {
         { foo: initialFormState },
         payload({ formId: 'foo', fieldId: 'bar', value: 'test' })
       )
-    ).toEqual({
-      foo: {
-        data: {
-          bar: {
-            value: 'test',
-            isEnabled: true,
-            isTouched: true,
-            isRequired: false,
-            isValid: true,
-          },
-        },
-        state: {},
-      },
-    })
+    ).toMatchSnapshot()
   })
 })

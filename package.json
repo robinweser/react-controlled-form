@@ -25,7 +25,7 @@
     "test": "cross-env BABEL_ENV=commonjs jest",
     "coverage": "yarn test -- --coverage",
     "watch": "yarn test -- --watch",
-    "setup": "yarn clear && yarn bootstrap && yarn babel"
+    "setup": "yarn clear && yarn bootstrap && yarn build"
   },
   "repository": "https://github.com/rofrischmann/react-controlled-form",
   "author": "Robin Frischmann",

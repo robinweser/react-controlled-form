@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Updating form fields should update values and set isTouched 1`] = `
+Object {
+  "foo": Object {
+    "data": Object {
+      "bar": Object {
+        "isEnabled": true,
+        "isRequired": false,
+        "isTouched": true,
+        "isValid": true,
+        "value": "test",
+      },
+    },
+    "state": Object {},
+  },
+}
+`;

@@ -2,6 +2,12 @@
 
 ## 3.0
 
+### 3.1
+
+#### 3.1.0
+* refactored underlying structures in order to support re-initialisation and more stable form resets.
+* fixed React setState errors.
+
 ### 3.0
 
 #### 3.0.1

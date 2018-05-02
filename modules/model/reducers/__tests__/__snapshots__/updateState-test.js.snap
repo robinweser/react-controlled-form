@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Updating form state should merge the state 1`] = `
+Object {
+  "foo": Object {
+    "data": Object {},
+    "state": Object {
+      "another_valid": true,
+      "is_checked": true,
+      "something_valid": false,
+    },
+  },
+}
+`;

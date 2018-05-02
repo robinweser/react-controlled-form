@@ -10,20 +10,7 @@ describe('Initializing a form field', () => {
         { foo: initialFormState },
         payload({ formId: 'foo', fieldId: 'bar' })
       )
-    ).toEqual({
-      foo: {
-        data: {
-          bar: {
-            value: '',
-            isEnabled: true,
-            isTouched: false,
-            isRequired: false,
-            isValid: true,
-          },
-        },
-        state: {},
-      },
-    })
+    ).toMatchSnapshot()
   })
 
   it('should overwrite default values', () => {
@@ -38,20 +25,7 @@ describe('Initializing a form field', () => {
           value: true,
         })
       )
-    ).toEqual({
-      foo: {
-        data: {
-          bar: {
-            value: true,
-            isEnabled: true,
-            isTouched: false,
-            isRequired: true,
-            isValid: false,
-          },
-        },
-        state: {},
-      },
-    })
+    ).toMatchSnapshot()
   })
 
   it('should keep initial form field values', () => {
@@ -77,19 +51,6 @@ describe('Initializing a form field', () => {
           value: true,
         })
       )
-    ).toEqual({
-      foo: {
-        data: {
-          bar: {
-            value: 'baz',
-            isEnabled: false,
-            isTouched: false,
-            isRequired: true,
-            isValid: false,
-          },
-        },
-        state: {},
-      },
-    })
+    ).toMatchSnapshot()
   })
 })

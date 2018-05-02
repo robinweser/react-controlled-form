@@ -16,15 +16,6 @@ describe('Updating form state', () => {
           newState: { is_checked: true, something_valid: false },
         })
       )
-    ).toEqual({
-      foo: {
-        data: {},
-        state: {
-          is_checked: true,
-          something_valid: false,
-          another_valid: true,
-        },
-      },
-    })
+    ).toMatchSnapshot()
   })
 })

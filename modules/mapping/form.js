@@ -1,3 +1,6 @@
+import objectFilter from 'fast-loops/lib/objectFilter'
+import objectReduce from 'fast-loops/lib/objectReduce'
+
 import {
   initForm as initFormAction,
   resetForm as resetFormAction,
@@ -10,12 +13,23 @@ import { REDUCER_NAMESPACE } from '../model/reducers/_namespace'
 import type { Field } from '../../types/Field'
 
 export function mapStateToProps(store: Object, { formId }: Object) {
+  const filterInitial = obj =>
+    objectFilter(obj, (value, key) => key !== '_initial')
+
   return {
-    data:
+    data: objectReduce(
       store[REDUCER_NAMESPACE][formId] && store[REDUCER_NAMESPACE][formId].data,
-    state:
-      store[REDUCER_NAMESPACE][formId] &&
-      store[REDUCER_NAMESPACE][formId].state,
+      (data, fieldData, fieldId) => {
+        data[fieldId] = filterInitial(fieldData)
+        return data
+      },
+      {}
+    ),
+    state: filterInitial(
+      (store[REDUCER_NAMESPACE][formId] &&
+        store[REDUCER_NAMESPACE][formId].state) ||
+        {}
+    ),
   }
 }
 

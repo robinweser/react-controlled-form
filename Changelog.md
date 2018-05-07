@@ -4,6 +4,10 @@
 
 ### 3.1
 
+#### 3.1.1
+* removed `_initial` fields from all passed data and state props
+* fixed a bug that rendered initial forms with empty data
+
 #### 3.1.0
 * refactored underlying structures in order to support re-initialisation and more stable form resets.
 * fixed React setState errors.

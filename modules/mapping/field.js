@@ -1,4 +1,6 @@
 /* @flow */
+import objectFilter from 'fast-loops/lib/objectFilter'
+
 import {
   initField as initFieldAction,
   updateField as updateFieldAction,
@@ -10,9 +12,12 @@ import { REDUCER_NAMESPACE } from '../model/reducers/_namespace'
 import type { Field } from '../../types/Field'
 
 export function mapStateToProps(store: Object, { fieldId, formId }: Object) {
+  const filterInitial = obj =>
+    objectFilter(obj, (value, key) => key !== '_initial')
+
   return {
-    data: store[REDUCER_NAMESPACE][formId].data[fieldId] || {},
-    state: store[REDUCER_NAMESPACE][formId].state,
+    data: filterInitial(store[REDUCER_NAMESPACE][formId].data[fieldId] || {}),
+    state: filterInitial(store[REDUCER_NAMESPACE][formId].state),
   }
 }
 

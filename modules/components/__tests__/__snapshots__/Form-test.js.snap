@@ -19,15 +19,9 @@ exports[`Rendering a Form component should initialize the form data 1`] = `
     data={
       Object {
         "firstname": Object {
-          "_initial": Object {
-            "value": "John",
-          },
           "value": "John",
         },
         "lastname": Object {
-          "_initial": Object {
-            "value": "Doe",
-          },
           "value": "Doe",
         },
       }
@@ -46,11 +40,7 @@ exports[`Rendering a Form component should initialize the form data 1`] = `
     }
     render={[Function]}
     resetForm={[Function]}
-    state={
-      Object {
-        "_initial": Object {},
-      }
-    }
+    state={Object {}}
     updateField={[Function]}
     updateState={[Function]}
   >
@@ -73,13 +63,6 @@ exports[`Rendering a Form component should initialize the form data form inner f
     data={
       Object {
         "firstname": Object {
-          "_initial": Object {
-            "isEnabled": true,
-            "isRequired": false,
-            "isTouched": false,
-            "isValid": true,
-            "value": "John",
-          },
           "isEnabled": true,
           "isRequired": false,
           "isTouched": false,
@@ -92,11 +75,7 @@ exports[`Rendering a Form component should initialize the form data form inner f
     initForm={[Function]}
     render={[Function]}
     resetForm={[Function]}
-    state={
-      Object {
-        "_initial": Object {},
-      }
-    }
+    state={Object {}}
     updateField={[Function]}
     updateState={[Function]}
   >
@@ -127,13 +106,6 @@ exports[`Rendering a Form component should initialize the form data form inner f
           <Field
             data={
               Object {
-                "_initial": Object {
-                  "isEnabled": true,
-                  "isRequired": false,
-                  "isTouched": false,
-                  "isValid": true,
-                  "value": "John",
-                },
                 "isEnabled": true,
                 "isRequired": false,
                 "isTouched": false,
@@ -150,11 +122,7 @@ exports[`Rendering a Form component should initialize the form data form inner f
               }
             }
             render={[Function]}
-            state={
-              Object {
-                "_initial": Object {},
-              }
-            }
+            state={Object {}}
             subscribeToReinit={[Function]}
             updateField={[Function]}
             updateState={[Function]}

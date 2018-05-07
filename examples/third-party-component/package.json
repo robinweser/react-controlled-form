@@ -1,10 +1,10 @@
 {
   "name": "third-party-component",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "dependencies": {
     "react": "^15.5.0",
-    "react-controlled-form": "^3.1.0",
+    "react-controlled-form": "^3.1.2",
     "react-dom": "^15.5.0",
     "react-redux": "^5.0.5",
     "react-select": "1.0.0-rc.5",

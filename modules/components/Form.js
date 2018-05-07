@@ -50,7 +50,6 @@ class Form extends Component {
     }
   }
 
-  /* eslint-disable consistent-return */
   componentWillReceiveProps(newProps) {
     const {
       data,
@@ -104,7 +103,6 @@ class Form extends Component {
 
     this.initialized = true
   }
-  /* eslint-enable */
 
   reset = () => {
     this.props.resetForm()

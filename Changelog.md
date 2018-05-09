@@ -4,6 +4,9 @@
 
 ### 3.1
 
+#### 3.1.3
+* ability to actively not initialize value if initialData's value is set to `null`
+
 #### 3.1.1
 * removed `_initial` fields from all passed data and state props
 * fixed a bug that rendered initial forms with empty data

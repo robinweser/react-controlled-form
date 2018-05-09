@@ -10,7 +10,7 @@ export default function composeData(
   return objectReduce(
     newData,
     (data, value, property) => {
-      if (value !== undefined) {
+      if (value !== undefined && value !== null) {
         data[property] = value
       }
 

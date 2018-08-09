@@ -29,7 +29,7 @@ class Field extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const { initField, initialData, subscribeToReinit } = props
+    const { initField, initialData, initialState, subscribeToReinit } = props
 
     const init = () => initField(initialData, initialState)
     this.unsubscribe = subscribeToReinit(init)

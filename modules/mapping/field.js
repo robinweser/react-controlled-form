@@ -26,8 +26,10 @@ export function mapDispatchToProps(
   { fieldId, formId }: Object
 ) {
   return {
-    initField: (fieldData: Field) =>
-      dispatch(initFieldAction({ formId, fieldId, ...fieldData })),
+    initField: (fieldData: Field, initialState: Object) =>
+      dispatch(
+        initFieldAction({ formId, fieldId, ...fieldData, initialState })
+      ),
     updateField: (fieldData: Field) =>
       dispatch(
         updateFieldAction({

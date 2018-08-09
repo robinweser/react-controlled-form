@@ -12,6 +12,7 @@ type FieldProps = {
   // public API
   fieldId: string,
   initialData: FieldType,
+  initialState: Object,
   render: Function,
 
   // passed via Redux / context
@@ -30,7 +31,7 @@ class Field extends Component {
 
     const { initField, initialData, subscribeToReinit } = props
 
-    const init = () => initField(initialData)
+    const init = () => initField(initialData, initialState)
     this.unsubscribe = subscribeToReinit(init)
     init()
   }

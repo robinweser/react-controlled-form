@@ -13,6 +13,7 @@ export default function initField(
       isEnabled = true,
       isRequired = false,
       isValid = true,
+      initialState = {},
     },
   }: Action
 ): Object {
@@ -39,6 +40,10 @@ export default function initField(
           ...fieldData,
           _initial: fieldData,
         },
+      },
+      state: {
+        ...state[formId].state,
+        ...initialState,
       },
     },
   }

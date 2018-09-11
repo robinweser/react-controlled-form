@@ -3,6 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
+import rfc from 'react-fast-compare'
 
 import { mapStateToProps, mapDispatchToProps } from '../mapping/field'
 
@@ -34,6 +35,16 @@ class Field extends Component {
     const init = () => initField(initialData, initialState)
     this.unsubscribe = subscribeToReinit(init)
     init()
+  }
+  
+  // Hotfix for https://github.com/rofrischmann/react-controlled-form/issues/39
+  shouldComponentUpdate(nextProps, nextState) {
+    const sameState = rfc(this.state, nextState)
+    const sameFormState = rfc(this.props.state, nextProps.state)
+    const sameData = rfc(this.props.data, nextProps.data)
+    const sameId = this.props.formId === nextProps.formId
+
+    return !(sameState && sameFormState && sameData && sameId)
   }
 
   componentWillUnmount() {

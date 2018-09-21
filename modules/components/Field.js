@@ -39,12 +39,55 @@ class Field extends Component {
   
   // Hotfix for https://github.com/rofrischmann/react-controlled-form/issues/39
   shouldComponentUpdate(nextProps, nextState) {
+    console.log(`${this.props.formId}.${this.props.fieldId} SCU`);
+    
+    if (this.props.children !== nextProps.children) {
+      return true
+    }
+    
+    const sameRF = this.props.render === nextProps.render;
+    if (!sameRF) {
+      console.log('Render function differs!')
+      return true
+    }
     const sameState = rfc(this.state, nextState)
+    if (!sameState) {
+      console.log('State differs!')
+      return true
+    }
     const sameFormState = rfc(this.props.state, nextProps.state)
+    if (!sameFormState) {
+      console.log('FormState differs!')
+      return true
+    }
     const sameData = rfc(this.props.data, nextProps.data)
-    const sameId = this.props.formId === nextProps.formId
-
-    return !(sameState && sameFormState && sameData && sameId)
+    if (!sameData) {
+      console.log('Form Data prop differs!')
+      return true
+    }
+    const sameFormId = this.props.formId === nextProps.formId
+    if (!sameFormId) {
+      console.log('formId differs!')
+      return true
+    }
+    const sameFieldId = this.props.fieldId === nextProps.fieldId
+    if (!sameFieldId) {
+      console.log('fieldId differs!')
+      return true
+    }
+  
+    if (this.props.initialData !== nextProps.initialData) {
+      console.log('initialData differs!')
+      return true
+    }
+    if (this.props.initialState !== nextProps.initialState) {
+      console.log('initialState differs!')
+      return true
+    }
+  
+    console.log(`${this.props.formId}.${this.props.fieldId} NO NEED TO UPDATE`);
+    return false;
+    // return !(sameState && sameFormState && sameData && sameId)
   }
 
   componentWillUnmount() {

@@ -3,6 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getContext, compose } from 'recompose'
 import { connect } from 'react-redux'
+import rfc from 'react-fast-compare'
 
 import { mapStateToProps, mapDispatchToProps } from '../mapping/field'
 
@@ -34,6 +35,51 @@ class Field extends Component {
     const init = () => initField(initialData, initialState)
     this.unsubscribe = subscribeToReinit(init)
     init()
+  }
+  
+  // Hotfix for https://github.com/rofrischmann/react-controlled-form/issues/39
+  shouldComponentUpdate(nextProps, nextState) {
+    // See https://github.com/facebook/react/issues/12185#issuecomment-364531032
+    if (this.props.children !== nextProps.children) {
+      return true
+    }
+    const diffRF = this.props.render === nextProps.render;
+    if (diffRF) {
+      return true
+    }
+    // Deep equalities
+    const diffState = rfc(this.state, nextState)
+    if (diffState) {
+      return true
+    }
+    const diffFormState = rfc(this.props.state, nextProps.state)
+    if (diffFormState) {
+      return true
+    }
+    const diffData = rfc(this.props.data, nextProps.data)
+    if (diffData) {
+      return true
+    }
+    // Shallow ones
+    const diffFormId = this.props.formId === nextProps.formId
+    if (diffFormId) {
+      return true
+    }
+    const diffFieldId = this.props.fieldId === nextProps.fieldId
+    if (diffFieldId) {
+      return true
+    }
+    const diffInitData = this.props.initialData !== nextProps.initialData
+    if (diffInitData) {
+      return true
+    }
+    const diffInitState = this.props.initialState !== nextProps.initialState
+    if (diffInitState) {
+      return true
+    }
+    
+    // No need to update.
+    return false;
   }
 
   componentWillUnmount() {

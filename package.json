@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-form",
-  "version": "3.2.0",
+  "version": "3.2.6",
   "description": "Controlled Forms for React and Redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -12,7 +12,7 @@
     "es/**"
   ],
   "scripts": {
-    "build": "BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
+    "build": "cross-env BABEL_ENV=commonjs babel -d lib modules && babel -d es modules",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "clear": "rimraf coverage _book lib es",
@@ -47,6 +47,7 @@
   "dependencies": {
     "fast-loops": "^1.0.0",
     "prop-types": "^15.5.10",
+    "react-fast-compare": "^2.0.2",
     "recompose": "^0.23.5",
     "redux-actions": "^2.0.3"
   },

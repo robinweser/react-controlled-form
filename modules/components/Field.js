@@ -39,55 +39,47 @@ class Field extends Component {
   
   // Hotfix for https://github.com/rofrischmann/react-controlled-form/issues/39
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(`${this.props.formId}.${this.props.fieldId} SCU`);
-    
+    // See https://github.com/facebook/react/issues/12185#issuecomment-364531032
     if (this.props.children !== nextProps.children) {
       return true
     }
+    const diffRF = this.props.render === nextProps.render;
+    if (diffRF) {
+      return true
+    }
+    // Deep equalities
+    const diffState = rfc(this.state, nextState)
+    if (diffState) {
+      return true
+    }
+    const diffFormState = rfc(this.props.state, nextProps.state)
+    if (diffFormState) {
+      return true
+    }
+    const diffData = rfc(this.props.data, nextProps.data)
+    if (diffData) {
+      return true
+    }
+    // Shallow ones
+    const diffFormId = this.props.formId === nextProps.formId
+    if (diffFormId) {
+      return true
+    }
+    const diffFieldId = this.props.fieldId === nextProps.fieldId
+    if (diffFieldId) {
+      return true
+    }
+    const diffInitData = this.props.initialData !== nextProps.initialData
+    if (diffInitData) {
+      return true
+    }
+    const diffInitState = this.props.initialState !== nextProps.initialState
+    if (diffInitState) {
+      return true
+    }
     
-    const sameRF = this.props.render === nextProps.render;
-    if (!sameRF) {
-      console.log('Render function differs!')
-      return true
-    }
-    const sameState = rfc(this.state, nextState)
-    if (!sameState) {
-      console.log('State differs!')
-      return true
-    }
-    const sameFormState = rfc(this.props.state, nextProps.state)
-    if (!sameFormState) {
-      console.log('FormState differs!')
-      return true
-    }
-    const sameData = rfc(this.props.data, nextProps.data)
-    if (!sameData) {
-      console.log('Form Data prop differs!')
-      return true
-    }
-    const sameFormId = this.props.formId === nextProps.formId
-    if (!sameFormId) {
-      console.log('formId differs!')
-      return true
-    }
-    const sameFieldId = this.props.fieldId === nextProps.fieldId
-    if (!sameFieldId) {
-      console.log('fieldId differs!')
-      return true
-    }
-  
-    if (this.props.initialData !== nextProps.initialData) {
-      console.log('initialData differs!')
-      return true
-    }
-    if (this.props.initialState !== nextProps.initialState) {
-      console.log('initialState differs!')
-      return true
-    }
-  
-    console.log(`${this.props.formId}.${this.props.fieldId} NO NEED TO UPDATE`);
+    // No need to update.
     return false;
-    // return !(sameState && sameFormState && sameData && sameId)
   }
 
   componentWillUnmount() {

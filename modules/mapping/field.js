@@ -21,6 +21,11 @@ export function mapStateToProps(store: Object, { fieldId, formId }: Object) {
   }
 }
 
+// https://github.com/reduxjs/react-redux/issues/157#issuecomment-148333201
+// https://stackoverflow.com/questions/46911024/how-do-i-avoid-re-rendering-a-connected-react-purecomponent-due-to-mapdispatchto/46918014#46918014
+// Passing ownProps to the mapDispatchToProps was forcing the component
+// to re-render on every interaction with the redux store, even unrelated to it,
+// as the function changed every time and thus were not cached.
 export function mapDispatchToProps(
   dispatch: Function,
   { fieldId, formId }: Object

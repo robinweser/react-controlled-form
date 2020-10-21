@@ -1,6 +1,6 @@
 {
   "name": "simple-example",
-  "version": "0.0.7",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

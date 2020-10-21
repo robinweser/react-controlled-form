@@ -25,6 +25,7 @@ function Input({ label, name, isValid, errorMessage, ...props }) {
 }
 
 export default () => {
+  // onChange validation
   const firstname = useField({
     name: 'firstname',
     showValidationOn: 'change',
@@ -35,6 +36,7 @@ export default () => {
     },
   })
 
+  // onBlur validation
   const lastname = useField({
     name: 'lastname',
     showValidationOn: 'blur',
@@ -45,6 +47,7 @@ export default () => {
     },
   })
 
+  // onSubmit validation
   const age = useField({
     name: 'age',
     validation: {

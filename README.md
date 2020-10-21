@@ -32,10 +32,10 @@ import { useField, useForm } from 'react-controlled-form'
 
 function Input({ isValid, errorMessage, ...props }) {
   return (
-    <>
+    <div>
       <input style={{ borderColor: isValid ? 'black' : 'red' }} {...props} />
       {errorMessage && <div>{errorMessage}</div>}
-    </>
+    </div>
   )
 }
 
@@ -187,6 +187,8 @@ const params = {
   options,
 }
 ```
+
+#### Usage
 
 ```js
 import { createUseField } from 'react-controlled-form'

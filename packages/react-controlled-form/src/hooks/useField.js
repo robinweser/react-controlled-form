@@ -17,7 +17,7 @@ function resolveProps({ field, update, validate, options }) {
     const dirty = newValue !== value
     const errorMessage = validate(newValue)
 
-    update((field) => ({
+    update(field => ({
       ...field,
       value: newValue,
       errorMessage,

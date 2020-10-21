@@ -2,11 +2,11 @@ import { arrayReduce } from 'fast-loops'
 
 export default function useForm(...fields) {
   function touchFields() {
-    fields.forEach((field) => field.update({ isTouched: true }))
+    fields.forEach(field => field.update({ isTouched: true }))
   }
 
   function reset() {
-    fields.forEach((field) => field.update(field.initial))
+    fields.forEach(field => field.update(field.initial))
   }
 
   function submit(onSubmit) {

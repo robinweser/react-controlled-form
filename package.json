@@ -7,7 +7,7 @@
     "build": "lerna run build",
     "clean": "rimraf _book && lerna run clean",
     "docs": "gitbook install && gitbook build && gh-pages -d _book",
-    "format": "prettier --write \"examples/*/src/**/*.js\" && prettier --write \"packages/*/src/**/*.js\"",
+    "format": "prettier --write \"examples/*/pages/**/*.js\" && prettier --write \"packages/*/src/**/*.js\"",
     "check": "yarn format && yarn coverage",
     "coverage": "lerna run coverage",
     "release": "yarn run check && yarn build && lerna publish --force-publish && yarn docs",

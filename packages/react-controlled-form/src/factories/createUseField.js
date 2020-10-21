@@ -51,11 +51,11 @@ export default function createUseField(resolveProps) {
     }
 
     const [field, setField] = useState(initial)
-    const update = (updater) => {
+    const update = updater => {
       if (typeof updater === 'function') {
         setField(updater)
       } else {
-        setField((field) => ({ ...field, ...updater }))
+        setField(field => ({ ...field, ...updater }))
       }
     }
 

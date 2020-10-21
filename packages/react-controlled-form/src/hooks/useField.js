@@ -37,6 +37,7 @@ function resolveProps({ field, update, validate, options }) {
     isValid: isTouched ? !errorMessage : true,
     onChange,
   }
+
   // by default, we always hide validation errors once the field is focused again
   props.onFocus = () => update({ isTouched: false })
   if (showValidationOn === 'blur') {

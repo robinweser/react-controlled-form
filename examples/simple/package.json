@@ -2,20 +2,15 @@
   "name": "simple-example",
   "version": "0.0.7",
   "private": true,
-  "dependencies": {
-    "react": "^15.5.0",
-    "react-controlled-form": "^3.2.0",
-    "react-dom": "^15.5.0",
-    "react-redux": "^5.0.5",
-    "redux": "^3.5.2"
-  },
-  "devDependencies": {
-    "react-scripts": "^1.0.2"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "test": "react-scripts test"
+    "dev": "next dev",
+    "vercel-build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.5.5",
+    "react": "^17.0.0",
+    "react-controlled-form": "^4.0.0",
+    "react-dom": "^17.0.0"
   }
 }

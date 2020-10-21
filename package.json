@@ -6,11 +6,10 @@
   "scripts": {
     "build": "lerna run build",
     "clean": "rimraf _book && lerna run clean",
-    "docs": "gitbook install && gitbook build && gh-pages -d _book",
     "format": "prettier --write \"examples/*/pages/**/*.js\" && prettier --write \"packages/*/src/**/*.js\"",
     "check": "yarn format && yarn coverage",
     "coverage": "lerna run coverage",
-    "release": "yarn run check && yarn build && lerna publish --force-publish && yarn docs",
+    "release": "yarn run check && yarn build && lerna publish --force-publish",
     "test": "lerna run test",
     "postinstall": "yarn build"
   },
@@ -21,13 +20,6 @@
   "devDependencies": {
     "lerna": "^3.6.0",
     "prettier": "^1.15.3",
-    "rimraf": "^2.6.2",
-    "gh-pages": "^1.0.0",
-    "gitbook-cli": "^2.3.0",
-    "gitbook-plugin-advanced-emoji": "^0.2.2",
-    "gitbook-plugin-anker-enable": "0.0.4",
-    "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-prism": "^2.2.0"
+    "rimraf": "^2.6.2"
   }
 }

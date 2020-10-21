@@ -1,1 +1,0 @@
-export const REDUCER_NAMESPACE = '__CONTROLLED_FORM'

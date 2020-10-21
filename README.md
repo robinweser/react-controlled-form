@@ -32,10 +32,10 @@ import { useField, useForm } from 'react-controlled-form'
 
 function Input({ isValid, errorMessage, ...props }) {
   return (
-    <>
+    <div>
       <input style={{ borderColor: isValid ? 'black' : 'red' }} {...props} />
       {errorMessage && <div>{errorMessage}</div>}
-    </>
+    </div>
   )
 }
 
@@ -188,6 +188,8 @@ const params = {
 }
 ```
 
+#### Usage
+
 ```js
 import { createUseField } from 'react-controlled-form'
 
@@ -232,5 +234,4 @@ const Firstname = () => <input {...firstname.props} />
 ## License
 
 react-controlled-form is licensed under the [MIT License](http://opensource.org/licenses/MIT).<br>
-Documentation is licensed under [Creative Common License](http://creativecommons.org/licenses/by/4.0/).<br>
 Created with ♥ by [@robinweser](http://weser.io) and all the great contributors.

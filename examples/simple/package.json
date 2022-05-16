@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^9.5.5",
+    "next": "^12.1.0",
     "react": "^17.0.0",
     "react-controlled-form": "^4.0.0",
     "react-dom": "^17.0.0"

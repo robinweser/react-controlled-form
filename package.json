@@ -1,6 +1,7 @@
 {
   "name": "react-controlled-form",
-  "version": "5.0.0",
+  "description": "React Forms with Zod Validation",
+  "version": "5.0.1",
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "types/index.d.ts",

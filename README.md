@@ -1,237 +1,265 @@
-# Controlled Forms
+# react-controlled-form
 
-react-controlled-form aims to **simplify form management** in React.<br>
-It ships functional APIs to create your very own form fields and is built with **flexibility** and **customization** in mind.<br>
+A package for creating controlled forms in React with baked in [zod](https://zod.dev) validation.<br />
+You own and control the rendered markup and the hook takes care of the state and validation.
 
-It allows you to **bring your own components**.<br>
-You do not have to struggle with predefined input components ever again!<br>
-It only uses React Hooks under-the-hood and is thus super fast.
-
-<img alt="npm downloads" src="https://img.shields.io/npm/dm/react-controlled-form.svg"> <img alt="npm version" src="https://badge.fury.io/js/react-controlled-form.svg">
+<img alt="npm version" src="https://badge.fury.io/js/react-controlled-form.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/react-controlled-form.svg"> <a href="https://bundlephobia.com/result?p=react-controlled-form@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/react-controlled-form.svg"></a>
 
 ## Installation
 
 ```sh
+# npm
+npm i --save react-controlled-form
+# yarn
 yarn add react-controlled-form
+# pnpm
+pnpm add react-controlled-form
 ```
-
-> Controlled Forms requires `react>=16.3.0` to be installed in your project.
-
-## Benefits
-
-- simple functional API
-- Controlled state using `useState`
-- full flexibility
-- custom form fields
-- reactive forms
 
 ## The Gist
 
-```jsx
-import { useField, useForm } from 'react-controlled-form'
+```tsx
+import * as React from 'react'
+import { useForm, FieldProps } from 'react-controlled-form'
+import { z, ZodError } from 'zod'
 
-function Input({ isValid, errorMessage, ...props }) {
-  return (
-    <div>
-      <input style={{ borderColor: isValid ? 'black' : 'red' }} {...props} />
-      {errorMessage && <div>{errorMessage}</div>}
-    </div>
-  )
-}
+// create our schema with validation included
+const Z_RegisterInput = z.object({
+  name: z.string().optional(),
+  email: z.string().email(),
+  // we can also pass custom messages as a second parameter
+  password: z
+    .string()
+    .min(8, { message: 'Your password next to have at least 8 characters.' }),
+})
 
-const nameValidation = {
-  'Please enter at least 2 characters.': (value) => value.length >= 2,
-  'Only use alphabetic letters.': /^[a-z]*$/gi,
-}
+type T_RegisterInput = z.infer<typeof Z_RegisterInput>
 
 function Form() {
-  const firstname = useField({
-    name: 'firstname',
-    validation: nameValidation,
-  })
+  // we create a form by passing the schema
+  const { useField, handleSubmit, formProps, reset } = useForm(Z_RegisterInput)
 
-  const lastname = useField({
-    name: 'firstname',
-    validation: nameValidation,
-  })
+  // now we can create our fields for each property
+  // the field controls the state and validation per property
+  const name = useField('name')
+  const email = useField('email')
+  const password = useField('password')
 
-  const { submit, reset } = useForm(firstname, lastname)
+  function onSuccess(data: T_RegisterInput) {
+    // do something with the safely parsed data
+    console.log(data)
+    // reset the form to its initial state
+    reset()
+  }
+
+  function onFailure(error: ZodError) {
+    console.error(error)
+  }
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault()
-
-        submit((isValid, data) => {
-          if (isValid) {
-            console.log('Submitted: ', data)
-            reset()
-          }
-        })
-      }}>
-      <Input {...firstname.props} />
-      <Input {...lastname.props} />
-      <input type="submit" />
+    <form {...formProps} onSubmit={handleSubmit(onSuccess, onFailure)}>
+      <Field label="Full Name" {...name.fieldProps}>
+        <TextInput {...name.inputProps} />
+      </Field>
+      <Field label="E-Mail" {...email.fieldProps}>
+        <TextInput type="email" {...email.inputProps} />
+      </Field>
+      <Field label="Password" {...password.fieldProps}>
+        <TextInput type="password" {...password.inputProps} />
+      </Field>
+      <button type="submit">Login</button>
     </form>
   )
 }
 ```
 
-## API
+In order for it to reflect UX bad practices, we need to build some lightweight wrappers around our actual input components.<br />
+Here's a very simple example of how this could look like:
 
-### useField(options)
-
-This hook uses `React.useState` under-the-hood and controls the state changes and validation for each field.
-The internal representation of a field contains the following properties:
-
-- value
-- isValid
-- isTouched
-- isDisabled
-- isRequired
-- isLoading
-- errorMessage
-
-#### Options
-
-| Option           |  Description                                                                                                   |
-| ---------------- | -------------------------------------------------------------------------------------------------------------- |
-| value            | The initial `value`.                                                                                           |
-| touched          |  The initial `isTouched` value.                                                                                |
-| loading          |  The initial `isLoading` value.                                                                                |
-| disabled         |  The initial `isDisabled` value.                                                                               |
-| required         |  The initial `isRequired` value.                                                                               |
-| validation       |  An map of errorMessage-validator where validator can either be a function of value or a RegExp.               |
-| showValidationOn |  When the field is "touched" and isValid / errorMessage are passed to the props.<br>Can be `change` or `blur`. |
-
-#### Returns
-
-`(Object)` An object containing the following properties:
-
-```js
-const shape = {
-  // Those can be passed to your custom input implementation
-  props,
-  // A function used to update manually the field (use with caution)
-  // It either takes properties from the internal field listed above
-  // or a function of the current field that returns the new field
-  update,
-  initial,
+```tsx
+// field.fieldProps includes the errorMessage as well as the name reference for the input
+function Field({
+  children,
+  label,
   name,
-  value,
-  isValid,
-  isTouched,
-  isDisabled,
-  isRequired,
   errorMessage,
+  required,
+}: PropsWithChildren<FieldProps & { label: string }>) {
+  return (
+    <div style={{ gap: 4 }}>
+      <label htmlFor={name}>
+        {label}
+        {required ? '' : ' (optional)'}
+      </label>
+      {children}
+      <p style={{ color: 'red' }}>{errorMessage}</p>
+    </div>
+  )
+}
+
+// field.inputProps returns a valid boolean next to default input props
+// we can use it to highlight a validation error
+function TextInput({
+  valid,
+  ...props
+}: React.JSX.IntrinsicElements['input'] & { valid: boolean }) {
+  return <input {...props} style={{ borderColor: valid ? 'black' : 'red' }} />
 }
 ```
 
-### useForm(...fields)
+## API Reference
 
-This hook takes a list of fields, where a field is the output of the useField hook.
+### useForm
 
-#### Returns
+The core API that connects the form with a zod schema and returns a set of helpers to manage the state and render the actual markup.
 
-`(Object)` An object containing the following properties:
+| Parameter          |  Type                                        | Default                    |  Description                                       |
+| ------------------ | -------------------------------------------- | -------------------------- | -------------------------------------------------- |
+| schema             | ZodObject                                    |                            | A valid zod object schema                          |
+| formatErrorMessage |  `(error: ZodIssue, name: string) => string` | `(error) => error.message` | A custom formatter that receives the raw zod issue |
 
-```js
-const shape = {
-  // Takes a function of (isValid, data) where isValid is the global validation state and data is a map of name-value
-  // Calling submit will automatically touch all fields to reveal the error messages (if not already shown)
-  submit,
-  // Resets the form to its initial state
-  reset,
-  // Touches each field to reveal their validation state & error messages
-  touchFields,
-}
-```
+```ts
+import { z } from 'zod'
 
-### useFormDebugger(...fields)
-
-This hook is only meant for debugging reasons.
-It takes the same fields as `useForm`, but returns all the field data on every render.
-
-#### Returns
-
-(Object) An object containing the following properties:
-
-```js
-const shape = {
-  // A map of name-value pairs
-  data,
-  // A map of name-field pairs, where field represents the full internal representation of each field
-  fields,
-  // The global validation state which is accumulated by checking each field's isValid
-  isValid,
-}
-```
-
----
-
-### createUseField(resolveProps)
-
-This factory function can be used to create your very own version of `useField` which can be useful if you want to implement different behaviour or return different props.
-
-It takes a function that receives an object with the following shape:
-
-```js
-const params = {
-  // All values from the internal field representation
-  field,
-  // A function used to validate the value according to the passed validation object
-  validate,
-  // The update function which is also returned by useField and described above
-  update,
-  // Any additionally passed options that are not directly part of the field representation e.g. showValidationOn
-  options,
-}
-```
-
-#### Usage
-
-```js
-import { createUseField } from 'react-controlled-form'
-
-function resolveProps({ field, update, validate, options }) {
-  const { name, value, isValid, isDisabled, isRequired } = field
-
-  return {
-    value,
-    name,
-    required: isRequired,
-    disabled: isDisabled,
-    onChange: (e) =>
-      update({
-        value: e.target.value,
-        isValid: validate(e.target.value),
-      }),
-    style: {
-      borderColor: isValid ? 'black' : options.validationColor,
-    },
-  }
-}
-
-const useField = createUseField(resolveProps)
-
-// Usage
-const firstname = useField({
-  name: 'firstname',
-  validationColor: 'pink',
-  validation: {
-    'Enter at least 2 characters.': (value) => value.length >= 2,
-  },
+const Z_Input = z.object({
+  name: z.string().optional(),
+  email: z.string().email(),
+  // we can also pass custom messages as a second parameter
+  password: z
+    .string()
+    .min(8, { message: 'Your password next to have at least 8 characters.' }),
 })
 
-// this will render an input with pink borders for invalid values
-const Firstname = () => <input {...firstname.props} />
+type T_Input = z.infer<typeof Z_Input>
+
+// usage inside react components
+const { useField, handleSubmit, reset, formProps } = useForm(Z_Input)
 ```
 
-## Examples
+#### formatErrorMessage
 
-- [Simple Example](examples/simple)
+The preferred way to handle custom error messages would be to add them to the schema directly.<br />
+In some cases e.g. when receiving the schema from an API or when having to localise the error, we can leverage this helper.
+
+```ts
+import { ZodIssue } from 'zod'
+
+// Note: the type is ZodIssue and not ZodError since we always only show the first error
+function formatErrorMessage(error: ZodIssue, name: string) {
+  switch (error.code) {
+    case 'too_small':
+      return `This field requires at least ${error.minimum} characters.`
+    default:
+      return error.message
+  }
+}
+```
+
+### useField
+
+A hook that manages the field state and returns the relevant HTML attributes to render our inputs.<br />
+Also returns a set of helpers to manually update and reset the field.
+
+| Parameter    |  Type                                                 | Default                                          |  Description                                                |
+| ------------ | ----------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
+| name         | `keyof z.infer<typeof schema>`                        |                                                  | The name of the schema property that this field connects to |
+| initialField | `{ value: any, disabled: boolean, touched: boolean }` | `{ value: "", disabled: false, touched: false }` | Initial field data                                          |
+
+```ts
+const { inputProps, fieldProps, update, reset } = useField('email')
+```
+
+#### inputProps
+
+```ts
+type InputProps = {
+  onChange: (e: React.ChangeEvent<HTMLElement>) => void
+  value: any
+  disabled: boolean
+  valid: boolean
+  name: string
+}
+```
+
+#### fieldProps
+
+```ts
+type FieldProps = {
+  name: string
+  required: boolean
+  errorMessage?: string
+}
+```
+
+#### update
+
+Programmatically change the data of a field. Useful e.g. when receiving data from an API.
+
+> **Note**: If you know the data upfront, prefer to pass it to the `useField` hook directly though.
+
+```ts
+update({
+  value: 'Foo',
+  touched: true,
+})
+```
+
+#### reset
+
+Resets the field back to its initial field data.
+
+```ts
+reset()
+```
+
+### handleSubmit
+
+Helper that wraps the native `onSubmit` event on `<form>` elements.<br />
+It prevents default action execution and parses the form data using the zod schema.
+
+| Parameter |  Type                            |  Description                                       |
+| --------- | -------------------------------- | -------------------------------------------------- |
+| onSuccess | `(data: z.infer<typeof schema>)` | Callback on successful safe parse of the form data |
+| onFailure | `(error: ZodError)`              | Callback on failed safe parse                      |
+
+```ts
+import { ZodError } from 'zod'
+
+function onSuccess(data: T_Input) {
+  console.log(data)
+}
+
+function onFailure(error: ZodError) {
+  console.error(error)
+}
+
+// <form> onSubmit handler
+const onSubmit = handleSubmit(onSuccess, onFailure)
+```
+
+### reset
+
+Resets the form fields back to their initial field data. Helpful when trying to clear a form after a successful submit.
+
+> **Note**: This API is similar to the `reset` helper that the `useField` hook returns. The only difference is that it resets all fields.
+
+```
+reset()
+```
+
+### formProps
+
+An object that contains props that are passed to the native `<form>` element.
+Currently only consists of a single prop:
+
+```ts
+const formProps = {
+  noValidate: true,
+}
+```
 
 ## License
 
 react-controlled-form is licensed under the [MIT License](http://opensource.org/licenses/MIT).<br>
+Documentation is licensed under [Creative Common License](http://creativecommons.org/licenses/by/4.0/).<br>
 Created with ♥ by [@robinweser](http://weser.io) and all the great contributors.

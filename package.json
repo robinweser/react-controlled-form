@@ -1,25 +1,55 @@
 {
-  "private": true,
-  "repository": "https://github.com/robinweser/react-controlled-form",
-  "author": "Robin Weser",
-  "license": "MIT",
-  "scripts": {
-    "build": "lerna run build",
-    "clean": "rimraf _book && lerna run clean",
-    "format": "prettier --write \"examples/*/pages/**/*.js\" && prettier --write \"packages/*/src/**/*.js\"",
-    "check": "yarn format && yarn coverage",
-    "coverage": "lerna run coverage",
-    "release": "yarn run check && yarn build && lerna publish --force-publish",
-    "test": "lerna run test",
-    "postinstall": "yarn build"
+  "name": "react-controlled-form",
+  "version": "5.0.0",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "types/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.d.ts",
+    "lib/**",
+    "es/**",
+    "types/**"
   ],
+  "browserslist": [
+    "IE >= 11",
+    "Firefox >= 60",
+    "Safari >= 11.1",
+    "Chrome >= 66",
+    "ChromeAndroid >= 66",
+    "iOS >= 11.3",
+    "Edge >= 15"
+  ],
+  "scripts": {
+    "clean": "rimraf lib es types",
+    "build": "tsc -b ./tsconfig.esm.json ./tsconfig.cjs.json ./tsconfig.types.json",
+    "dev": "pnpm build -w",
+    "release": "pnpm clean && pnpm build && npm publish"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "zod": ">=3"
+  },
   "devDependencies": {
-    "lerna": "^3.6.0",
-    "prettier": "^1.15.3",
-    "rimraf": "^2.6.2"
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@types/react": "^18.3.3",
+    "babel-core": "7.0.0-bridge.0",
+    "cross-env": "^6.0.3",
+    "prettier": "^3.3.0",
+    "react": "^18.3.1",
+    "rimraf": "^3.0.0",
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8"
   }
 }

@@ -15,14 +15,23 @@ Thumbs.db
 *.orig
 *.pyc
 *.rej
+*.vsix
+
 *.sass-cache
 *.sw?
 *.vi
 
+yarn.lock
+
+.merlin
 node_modules
-**/build
-coverage
 lib
 es
-_book
+types
+coverage
+dist
 .next
+.vercel
+out
+.vscode
+.turbo

@@ -39,7 +39,10 @@ function defaultFormatErrorMessage(error: ZodIssue) {
 // TODO: accept refined schemas, not possible due to https://github.com/colinhacks/zod/issues/2474
 export default function useForm<S extends ZodRawShape>(
   schema: ZodObject<S>,
-  formatErrorMessage: (error: ZodIssue, name: string) => string = defaultFormatErrorMessage
+  formatErrorMessage: (
+    error: ZodIssue,
+    name: string
+  ) => string = defaultFormatErrorMessage
 ) {
   const [fields, setFields] = useState<FieldsMap>({})
 
@@ -51,7 +54,7 @@ export default function useForm<S extends ZodRawShape>(
 
   function useField<T = string>(
     name: keyof S,
-    { value = '' as T, disabled = false, touched = false }: Options<T>
+    { value = '' as T, disabled = false, touched = false }: Options<T> = {}
   ) {
     const shape = schema.shape[name]
     const isOptional = shape.isOptional()

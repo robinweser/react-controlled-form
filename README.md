@@ -58,54 +58,24 @@ function Form() {
 
   return (
     <form {...formProps} onSubmit={handleSubmit(onSuccess, onFailure)}>
-      <Field label="Full Name" {...name.fieldProps}>
-        <TextInput {...name.inputProps} />
-      </Field>
-      <Field label="E-Mail" {...email.fieldProps}>
-        <TextInput type="email" {...email.inputProps} />
-      </Field>
-      <Field label="Password" {...password.fieldProps}>
-        <TextInput type="password" {...password.inputProps} />
-      </Field>
+      <label {...name.labelProps}>Full Name</label>
+      <input {...name.inputProps} />
+
+      <label {...email.labelProps}>E-Mail</label>
+      <input type="email" {...email.inputProps} />
+      <p style={{ color: 'red' }}>{email.errorMessage}</p>
+
+      <label {...password.labelProps}>Password</label>
+      <input type="password" {...password.inputProps} />
+      <p style={{ color: 'red' }}>{password.errorMessage}</p>
+
       <button type="submit">Login</button>
     </form>
   )
 }
 ```
 
-In order for it to reflect UX bad practices, we need to build some lightweight wrappers around our actual input components.<br />
-Here's a very simple example of how this could look like:
-
-```tsx
-// field.fieldProps includes the errorMessage as well as the name reference for the input
-function Field({
-  children,
-  label,
-  name,
-  errorMessage,
-  required,
-}: PropsWithChildren<FieldProps & { label: string }>) {
-  return (
-    <div style={{ gap: 4 }}>
-      <label htmlFor={name}>
-        {label}
-        {required ? '' : ' (optional)'}
-      </label>
-      {children}
-      <p style={{ color: 'red' }}>{errorMessage}</p>
-    </div>
-  )
-}
-
-// field.inputProps returns a valid boolean next to default input props
-// we can use it to highlight a validation error
-function TextInput({
-  valid,
-  ...props
-}: React.JSX.IntrinsicElements['input'] & { valid: boolean }) {
-  return <input {...props} style={{ borderColor: valid ? 'black' : 'red' }} />
-}
-```
+> **Note**: This is, of course, a simplified version and you most likely render custom components to handle labelling, error messages and validation styling.<br />For such cases, each field also exposes a `props` property that combines `labelProps` and `inputProps`.
 
 ## API Reference
 
@@ -166,30 +136,57 @@ Also returns a set of helpers to manually update and reset the field.
 | initialField | `{ value: any, disabled: boolean, touched: boolean }` | `{ value: "", disabled: false, touched: false }` | Initial field data                                          |
 
 ```ts
-const { inputProps, fieldProps, update, reset } = useField('email')
+const { inputProps, labelProps, props, errorMessage, update, reset } =
+  useField('email')
 ```
 
 #### inputProps
+
+Pass these to native HTML `input`, `select` and `textarea` elements.
 
 ```ts
 type InputProps = {
   onChange: (e: React.ChangeEvent<HTMLElement>) => void
   value: any
   disabled: boolean
-  valid: boolean
+  'data-valid': boolean
   name: string
+  id: string
 }
 ```
 
-#### fieldProps
+#### labelProps
+
+Pass these to native HTML `label` elements.
 
 ```ts
-type FieldProps = {
-  name: string
+type LabelProps = {
+  // same as inputProps.id
+  htmlFor: string
+  'data-required': boolean
+}
+```
+
+#### props
+
+Pass these to custom components that render label and input elements.
+
+Combines all properties from [`inputProps`](#inputprops) and [`labelProps`](#labelprops) as well as some additional props for convenience access.
+
+```ts
+// & LabelProps & InputProps
+type Props = {
   required: boolean
+  valid: boolean
   errorMessage?: string
 }
 ```
+
+#### errorMessage
+
+> **Note**: If you're using [`props`](#props), you already get the errorMessage!
+
+A string containing the validation message. Only returned if the field is invalid **and** touched.
 
 #### update
 

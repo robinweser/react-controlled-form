@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState, FormEvent, ChangeEvent } from 'react'
-import { z, ZodObject, ZodError, ZodRawShape, ZodIssue, ZodEffects } from 'zod'
+import {
+  useEffect,
+  useRef,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  useId,
+} from 'react'
+import { z, ZodObject, ZodError, ZodRawShape, ZodIssue } from 'zod'
 
 export type Field<T> = {
   value: T
   disabled: boolean
   touched: boolean
   valid: boolean
-  errorMessage?: string
-}
-
-export type FieldProps = {
-  name: string
-  required: boolean
   errorMessage?: string
 }
 
@@ -50,12 +51,20 @@ export default function useForm<S extends ZodRawShape>(
     value?: T
     disabled?: boolean
     touched?: boolean
+    showValidationOn?: 'blur' | 'change'
   }
 
   function useField<T = string>(
     name: keyof S,
-    { value = '' as T, disabled = false, touched = false }: Options<T> = {}
+    {
+      value = '' as T,
+      disabled = false,
+      touched = false,
+      showValidationOn,
+    }: Options<T> = {}
   ) {
+    const id = useId()
+
     const shape = schema.shape[name]
     const isOptional = shape.isOptional()
 
@@ -137,34 +146,48 @@ export default function useForm<S extends ZodRawShape>(
       []
     )
 
-    const isValid = !field.errorMessage
+    const required = !isOptional
+    // Only show validation error when is touched
+    const valid = !field.touched ? true : !field.errorMessage
+    // Only show errrorMessage and validation styles if the field is touched according to the config
+    const message = field.touched ? field.errorMessage : undefined
 
     const inputProps = {
       value: field.value,
       disabled: field.disabled,
-      // Only show validation error when is touched
-      valid: !field.touched ? true : isValid,
+      'data-valid': valid,
+      id,
       name,
       onChange,
       // onFocus,
       // onBlur,
     }
 
-    const fieldProps: FieldProps = {
-      // Only show errrorMessage and validation styles if the field is touched according to the config
-      errorMessage: field.touched ? field.errorMessage : undefined,
-      required: !isOptional,
-      name: name as string,
+    const labelProps = {
+      htmlFor: id,
+      'data-required': required,
+    }
+
+    const props = {
+      ...inputProps,
+      ...labelProps,
+      errorMessage: message,
+      valid,
+      required,
     }
 
     return {
       ...field,
+      id,
+      required,
+      valid,
       name,
       update,
       reset,
-      isValid,
+      errorMessage: message,
       inputProps,
-      fieldProps,
+      labelProps,
+      props,
     }
   }
 

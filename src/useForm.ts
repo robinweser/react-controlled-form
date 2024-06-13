@@ -52,6 +52,7 @@ export default function useForm<S extends ZodRawShape>(
     disabled?: boolean
     touched?: boolean
     showValidationOn?: 'blur' | 'change'
+    parseValue?: (e: any) => T
   }
 
   function useField<T = string>(
@@ -61,6 +62,8 @@ export default function useForm<S extends ZodRawShape>(
       disabled = false,
       touched = false,
       showValidationOn,
+      parseValue = (e: React.ChangeEvent<HTMLInputElement>) =>
+        e.target.value as T,
     }: Options<T> = {}
   ) {
     const id = useId()
@@ -79,14 +82,14 @@ export default function useForm<S extends ZodRawShape>(
       }
     }
 
-    const errorMessage = validate(value)
+    const message = validate(value)
 
     const initialField = {
       value,
       disabled,
       touched,
-      valid: !errorMessage,
-      errorMessage,
+      valid: !message,
+      errorMessage: message,
     }
 
     const ref = useRef<T>(value)
@@ -133,27 +136,31 @@ export default function useForm<S extends ZodRawShape>(
       []
     )
 
-    // TODO: show validation on change option
     function onChange(e: ChangeEvent<HTMLInputElement>) {
-      const newValue = e.target.value as T
-
-      ref.current = newValue
-
-      const errorMessage = validate(newValue)
-
-      setField((field: Field<T>) => ({
-        ...field,
-        valid: !errorMessage,
-        errorMessage,
-        value: newValue,
-      }))
+      update({ value: parseValue(e) })
     }
 
     const required = !isOptional
     // Only show validation error when is touched
     const valid = !field.touched ? true : !field.errorMessage
     // Only show errrorMessage and validation styles if the field is touched according to the config
-    const message = field.touched ? field.errorMessage : undefined
+    const errorMessage = field.touched ? field.errorMessage : undefined
+
+    const touch = () => update({ touched: false })
+    const untouch = () => update({ touched: false })
+
+    function getListeners() {
+      if (showValidationOn === 'blur') {
+        return {
+          onFocus: touch,
+          onBlur: untouch,
+        }
+      }
+
+      return {
+        onFocus: touch,
+      }
+    }
 
     const labelProps = {
       id: labelId,
@@ -168,30 +175,26 @@ export default function useForm<S extends ZodRawShape>(
       id,
       name,
       onChange,
-      onFocus: () => update({ touched: false }),
-      ...(showValidationOn === 'blur'
-        ? { onBlur: update({ touched: false }) }
-        : {}),
+      ...getListeners(),
     }
 
     const props = {
       ...labelProps,
       ...inputProps,
       labelId,
-      errorMessage: message,
-      valid,
-      required,
+      errorMessage,
     }
 
     return {
       ...field,
-      id,
       required,
       valid,
+      id,
+      labelId,
       name,
       update,
       reset,
-      errorMessage: message,
+      errorMessage,
       inputProps,
       labelProps,
       props,

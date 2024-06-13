@@ -64,6 +64,7 @@ export default function useForm<S extends ZodRawShape>(
     }: Options<T> = {}
   ) {
     const id = useId()
+    const labelId = useId()
 
     const shape = schema.shape[name]
     const isOptional = shape.isOptional()
@@ -152,6 +153,12 @@ export default function useForm<S extends ZodRawShape>(
     // Only show errrorMessage and validation styles if the field is touched according to the config
     const message = field.touched ? field.errorMessage : undefined
 
+    const labelProps = {
+      id: labelId,
+      htmlFor: id,
+      'data-required': required,
+    }
+
     const inputProps = {
       value: field.value,
       disabled: field.disabled,
@@ -163,14 +170,10 @@ export default function useForm<S extends ZodRawShape>(
       // onBlur,
     }
 
-    const labelProps = {
-      htmlFor: id,
-      'data-required': required,
-    }
-
     const props = {
-      ...inputProps,
       ...labelProps,
+      ...inputProps,
+      labelId,
       errorMessage: message,
       valid,
       required,

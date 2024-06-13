@@ -24,8 +24,8 @@ type FieldReference = {
 
 type FieldsMap = Record<string, FieldReference>
 
-function mapFieldsToData(fields: Record<string, any>): Record<string, string> {
-  const obj: Record<string, string> = {}
+function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
+  const obj: Record<string, any> = {}
   for (const name in fields) {
     obj[name] = fields[name].ref.current
   }
@@ -168,7 +168,7 @@ export default function useForm<S extends ZodRawShape>(
       'data-required': required,
     }
 
-    const inputProps: Object = {
+    const inputProps = {
       value: field.value,
       disabled: field.disabled,
       'data-valid': valid,

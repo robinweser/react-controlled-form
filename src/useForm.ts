@@ -92,30 +92,16 @@ export default function useForm<S extends ZodRawShape>(
     const ref = useRef<T>(value)
     const [field, setField] = useState<Field<T>>(initialField)
 
-    // TODO: show validation on change option
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
-      const newValue = e.target.value as T
-
-      ref.current = newValue
-
-      const errorMessage = validate(newValue)
-
-      setField((field: Field<T>) => ({
-        ...field,
-        valid: !errorMessage,
-        errorMessage,
-        value: newValue,
-      }))
-    }
-
     function update(data: Partial<Field<T>>) {
       if (typeof data.value !== 'undefined') {
         ref.current = data.value
 
+        const dirty = data.value !== initialField.value
         const errorMessage = validate(data.value)
 
         setField((field: Field<T>) => ({
           ...field,
+          touched: showValidationOn === 'change' ? dirty : field.touched,
           ...data,
           errorMessage,
           valid: !errorMessage,
@@ -147,6 +133,22 @@ export default function useForm<S extends ZodRawShape>(
       []
     )
 
+    // TODO: show validation on change option
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
+      const newValue = e.target.value as T
+
+      ref.current = newValue
+
+      const errorMessage = validate(newValue)
+
+      setField((field: Field<T>) => ({
+        ...field,
+        valid: !errorMessage,
+        errorMessage,
+        value: newValue,
+      }))
+    }
+
     const required = !isOptional
     // Only show validation error when is touched
     const valid = !field.touched ? true : !field.errorMessage
@@ -159,15 +161,17 @@ export default function useForm<S extends ZodRawShape>(
       'data-required': required,
     }
 
-    const inputProps = {
+    const inputProps: Object = {
       value: field.value,
       disabled: field.disabled,
       'data-valid': valid,
       id,
       name,
       onChange,
-      // onFocus,
-      // onBlur,
+      onFocus: () => update({ touched: false }),
+      ...(showValidationOn === 'blur'
+        ? { onBlur: update({ touched: false }) }
+        : {}),
     }
 
     const props = {

@@ -1,23 +1,22 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  FormEvent,
-  ChangeEvent,
-  useId,
-} from 'react'
+import { useEffect, useRef, useState, FormEvent, ChangeEvent } from 'react'
 import { z, ZodObject, ZodError, ZodRawShape, ZodIssue } from 'zod'
 
 export type Field<T> = {
   value: T
   disabled: boolean
   touched: boolean
+  dirty: boolean
   valid: boolean
   errorMessage?: string
 }
 
 type FieldReference = {
-  ref: any
+  ref: {
+    current: {
+      value: any
+      dirty: boolean
+    }
+  }
   update: (data: Partial<Field<any>>) => void
   reset: () => void
 }
@@ -27,7 +26,7 @@ type FieldsMap = Record<string, FieldReference>
 function mapFieldsToData(fields: Record<string, any>): Record<string, any> {
   const obj: Record<string, any> = {}
   for (const name in fields) {
-    obj[name] = fields[name].ref.current
+    obj[name] = fields[name].ref.current.value
   }
 
   return obj
@@ -51,24 +50,20 @@ export default function useForm<S extends ZodRawShape>(
     value?: T
     disabled?: boolean
     touched?: boolean
-    showValidationOn?: 'blur' | 'change'
+    showValidationOn?: 'submit' | 'blur' | 'change'
     parseValue?: (e: any) => T
   }
 
-  function useField<T = string>(
+  function useField<T = string, C = ChangeEvent<HTMLInputElement>>(
     name: keyof S,
     {
       value = '' as T,
       disabled = false,
       touched = false,
-      showValidationOn,
-      parseValue = (e: React.ChangeEvent<HTMLInputElement>) =>
-        e.target.value as T,
+      showValidationOn = 'submit',
+      parseValue = (e: ChangeEvent<HTMLInputElement>) => e.target.value as T,
     }: Options<T> = {}
   ) {
-    const id = useId()
-    const labelId = useId()
-
     const shape = schema.shape[name]
     const isOptional = shape.isOptional()
 
@@ -88,23 +83,34 @@ export default function useForm<S extends ZodRawShape>(
       value,
       disabled,
       touched,
+      dirty: false,
       valid: !message,
       errorMessage: message,
     }
 
-    const ref = useRef<T>(value)
+    const ref = useRef<{
+      value: T
+      dirty: boolean
+    }>({
+      value,
+      dirty: false,
+    })
     const [field, setField] = useState<Field<T>>(initialField)
 
     function update(data: Partial<Field<T>>) {
       if (typeof data.value !== 'undefined') {
-        ref.current = data.value
-
         const dirty = data.value !== initialField.value
         const errorMessage = validate(data.value)
+
+        ref.current = {
+          value: data.value,
+          dirty,
+        }
 
         setField((field: Field<T>) => ({
           ...field,
           touched: showValidationOn === 'change' ? dirty : field.touched,
+          dirty,
           ...data,
           errorMessage,
           valid: !errorMessage,
@@ -118,7 +124,10 @@ export default function useForm<S extends ZodRawShape>(
     }
 
     function reset() {
-      ref.current = initialField.value
+      ref.current = {
+        value: initialField.value,
+        dirty: false,
+      }
 
       setField(initialField)
     }
@@ -136,7 +145,7 @@ export default function useForm<S extends ZodRawShape>(
       []
     )
 
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
+    function onChange(e: C) {
       update({ value: parseValue(e) })
     }
 
@@ -162,41 +171,36 @@ export default function useForm<S extends ZodRawShape>(
       }
     }
 
-    const labelProps = {
-      id: labelId,
-      htmlFor: id,
-      'data-required': required,
-    }
-
     const inputProps = {
       value: field.value,
       disabled: field.disabled,
-      'data-valid': valid,
-      id,
+      required,
       name,
+      'data-valid': valid,
       onChange,
       ...getListeners(),
     }
 
     const props = {
-      ...labelProps,
-      ...inputProps,
-      labelId,
+      name,
+      value: field.value,
+      disabled: field.disabled,
+      valid,
+      required,
       errorMessage,
+      onChange,
+      ...getListeners(),
     }
 
     return {
       ...field,
       required,
       valid,
-      id,
-      labelId,
       name,
       update,
       reset,
       errorMessage,
       inputProps,
-      labelProps,
       props,
     }
   }
@@ -211,6 +215,16 @@ export default function useForm<S extends ZodRawShape>(
     for (const name in fields) {
       fields[name].reset()
     }
+  }
+
+  function isDirty() {
+    for (const name in fields) {
+      if (fields[name].ref.current.dirty) {
+        return true
+      }
+    }
+
+    return false
   }
 
   function handleSubmit(
@@ -243,6 +257,7 @@ export default function useForm<S extends ZodRawShape>(
     useField,
     handleSubmit,
     formProps,
+    isDirty,
     reset,
   }
 }

@@ -58,15 +58,15 @@ function Form() {
 
   return (
     <form {...formProps} onSubmit={handleSubmit(onSuccess, onFailure)}>
-      <label {...name.labelProps}>Full Name</label>
-      <input {...name.inputProps} />
+      <label htmlFor="name">Full Name</label>
+      <input id="name" {...name.inputProps} />
 
-      <label {...email.labelProps}>E-Mail</label>
-      <input type="email" {...email.inputProps} />
+      <label htmlFor="email">E-Mail</label>
+      <input id="email" type="email" {...email.inputProps} />
       <p style={{ color: 'red' }}>{email.errorMessage}</p>
 
-      <label {...password.labelProps}>Password</label>
-      <input type="password" {...password.inputProps} />
+      <label htmlFor="password">Password</label>
+      <input id="password" type="password" {...password.inputProps} />
       <p style={{ color: 'red' }}>{password.errorMessage}</p>
 
       <button type="submit">Login</button>
@@ -75,7 +75,7 @@ function Form() {
 }
 ```
 
-> **Note**: This is, of course, a simplified version and you most likely render custom components to handle labelling, error messages and validation styling.<br />For such cases, each field also exposes a `props` property that combines `labelProps` and `inputProps`.
+> **Note**: This is, of course, a simplified version and you most likely render custom components to handle labelling, error messages and validation styling.<br />For such cases, each field also exposes a `props` property that extends the `inputProps` with non-standard HTML attributes.
 
 ## API Reference
 
@@ -118,7 +118,7 @@ import { ZodIssue } from 'zod'
 function formatErrorMessage(error: ZodIssue, name: string) {
   switch (error.code) {
     case 'too_small':
-      return `This field requires at least ${error.minimum} characters.`
+      return `This field ${name} requires at least ${error.minimum} characters.`
     default:
       return error.message
   }
@@ -130,55 +130,56 @@ function formatErrorMessage(error: ZodIssue, name: string) {
 A hook that manages the field state and returns the relevant HTML attributes to render our inputs.<br />
 Also returns a set of helpers to manually update and reset the field.
 
-| Parameter    |  Type                                                 | Default                                          |  Description                                                |
-| ------------ | ----------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
-| name         | `keyof z.infer<typeof schema>`                        |                                                  | The name of the schema property that this field connects to |
-| initialField | `{ value: any, disabled: boolean, touched: boolean }` | `{ value: "", disabled: false, touched: false }` | Initial field data                                          |
+| Parameter |  Type                          | Default               |  Description                                                |
+| --------- | ------------------------------ | --------------------- | ----------------------------------------------------------- |
+| name      | `keyof z.infer<typeof schema>` |                       | The name of the schema property that this field connects to |
+| config    | [Config](#config)              | See [Config](#config) | Initial field data and additional config options            |
+
+#### Config
+
+| Property         | Type                                 | Default                 |  Description                                                                                                                |
+| ---------------- | ------------------------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| value            | `any`                                | `''`                    | Initial value                                                                                                               |
+| disabled         | `boolean`                            | `false`                 | Initial disabled state                                                                                                      |
+| touched          | `boolean`                            | `false`                 | Initial touched state that indicates whether validation errors are shown or not                                             |
+| showValidationOn | `"change"` \| `"blur"` \| `"submit"` | `"submit"`              | Which event is used to trigger the touched state                                                                            |
+| parseValue       | `(Event) => any`                     | `(e) => e.target.value` | How the value is received from the input element.<br />Use `e.target.checked` when working with `<input type="checkbox" />` |
 
 ```ts
-const { inputProps, labelProps, props, errorMessage, update, reset } =
-  useField('email')
+const { inputProps, props, errorMessage, update, reset } = useField('email')
 ```
 
 #### inputProps
 
-Pass these to native HTML `input`, `select` and `textarea` elements.
+Pass these to native HTML `input`, `select` and `textarea` elements.<br />
+Use `data-valid` to style the element based on the validation state.
 
 ```ts
 type InputProps = {
-  onChange: (e: React.ChangeEvent<HTMLElement>) => void
+  name: string
   value: any
   disabled: boolean
   'data-valid': boolean
-  name: string
-  id: string
-}
-```
-
-#### labelProps
-
-Pass these to native HTML `label` elements.
-
-```ts
-type LabelProps = {
-  // same as inputProps.id
-  htmlFor: string
-  'data-required': boolean
+  onChange: React.ChangeEventHandler<HTMLElement>
+  onBlur?: React.KeyboardEventHandler<HTMLElement>
 }
 ```
 
 #### props
 
-Pass these to custom components that render label and input elements.
-
-Combines all properties from [`inputProps`](#inputprops) and [`labelProps`](#labelprops) as well as some additional props for convenience access.
+Pass these to custom components that render label and input elements.<br />
+Also includes information such as `errorMessage` or `valid` that's non standard HTML attributes and thus can't be passed to native HTML `input` elements directly.
 
 ```ts
-// & LabelProps & InputProps
 type Props = {
-  required: boolean
+  value: any
+  name: string
   valid: boolean
+  required: boolean
+  disabled: boolean
   errorMessage?: string
+  onChange: React.ChangeEventHandler<HTMLElement>
+  onBlur?: React.KeyboardEventHandler<HTMLElement>
 }
 ```
 
@@ -190,9 +191,10 @@ A string containing the validation message. Only returned if the field is invali
 
 #### update
 
-Programmatically change the data of a field. Useful e.g. when receiving data from an API.
+Programmatically change the data of a field. Useful e.g. when receiving data from an API.<br />
+If value is changed, it will automatically trigger re-validation.
 
-> **Note**: If you know the data upfront, prefer to pass it to the `useField` hook directly though.
+> **Note**: If you know the initial data upfront, prefer to pass it to the `useField` hook directly though.
 
 ```ts
 update({
@@ -244,6 +246,15 @@ Resets the form fields back to their initial field data. Helpful when trying to 
 reset()
 ```
 
+### isDirty
+
+Returns whether the form is dirty, meaning that any of the fields was altered compared to their initial state.<br />
+Useful e.g. when conditionally showing a save button or when you want to inform a user that he's closing a modal with unsafed changes.
+
+```ts
+isDirty()
+```
+
 ### formProps
 
 An object that contains props that are passed to the native `<form>` element.
@@ -254,6 +265,36 @@ const formProps = {
   noValidate: true,
 }
 ```
+
+## Recipes
+
+### Non-String Values
+
+By default, [useField](#usefield) expects string values and defaults to an empty string if no initial value is provided.<br />
+In order to also support e.g. `boolean` values or arrays, we can customise the types and pass new values.
+
+```tsx
+import { ChangeEvent } from 'react'
+
+const acceptsTerms = useField<boolean, ChangeEvent<HTMLInputElement>>('terms', {
+  // alter how the value is obtained if neccessary
+  // e.g. for checkboxes or custom inputs
+  parseValue: (e) => e.target.checked,
+  // set an initial value overwritting the default empty string
+  value: false,
+})
+
+// custom multi-select input that returns an array of values on change
+type Tags = Array<string>
+type TagsChangeEvent = (value: Tags) => void
+
+const tags = useField<Tags, TagsChangeEvent>('tags', {
+  parseValue: (value) => value,
+  value: [],
+})
+```
+
+Passing a custom value type and change event will also change the type of `field.value` and the expected input for [update](#update).
 
 ## License
 

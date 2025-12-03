@@ -1,3 +1,5 @@
+> **Warning**: This package is outdated. Please check its successor [@weser/forms](https://packages.weser.io/forms/overview). Similar API, better types, more functionality built-in.
+
 # react-controlled-form
 
 A package for creating controlled forms in React with baked in [zod](https://zod.dev) validation.<br />

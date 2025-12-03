@@ -1,4 +1,4 @@
-> **Warning**: This package is outdated. Please check its successor [@weser/forms](https://packages.weser.io/forms/overview). Similar API, better types, more functionality built-in.
+> **Warning**: This package is outdated and deprecated. Please check its successor [@weser/forms](https://packages.weser.io/forms/overview).<br/>Similar API, better types, more functionality built-in.
 
 # react-controlled-form
 
